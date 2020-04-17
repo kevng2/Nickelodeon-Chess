@@ -26,10 +26,10 @@ for i in range(0, 8):
     for j in range(0, 8):
         if count % 2 == 0:
             # print black square
-            pygame.draw.rect(gameDisplay, (204,102,0), [squareSize*j + 50, squareSize*i + 50, squareSize, squareSize])
+            pygame.draw.rect(gameDisplay, (204,102,0), [squareSize*j + 85, squareSize*i + 85, squareSize, squareSize])
         else:
             # print white squares
-            pygame.draw.rect(gameDisplay, (255,255,255), [squareSize*j + 50, squareSize*i + 50, squareSize, squareSize])
+            pygame.draw.rect(gameDisplay, (255,255,255), [squareSize*j + 85, squareSize*i + 85, squareSize, squareSize])
         count += 1
     # -1 to for alternating rows
     count -= 1
@@ -38,6 +38,7 @@ gameDisplay.blit(image, (50,50))
 pygame.display.update()
 sound.music()
 
+# Loop to print out different events, just for testing
 while not gameExit:
     for event in pygame.event.get():
         print(event)
