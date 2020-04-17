@@ -27,3 +27,38 @@ class Bishop(Piece):
         super().__init__(team, x, y)
         #sprite is a visual object within pygame
         self.sprite = pygame.image.load("./images/bishop.png")
+
+class Rook(Piece):
+    def __init__(self, team, x, y):
+        #super used for inheritance
+        super().__init__(team, x, y)
+        #sprite is a visual object within pygame
+        self.sprite = pygame.image.load("./images/rook.png")
+
+class King(Piece):
+    def __init__(self, team, x, y):
+        #super used for inheritance
+        super().__init__(team, x, y)
+        #sprite is a visual object within pygame
+        self.sprite = pygame.image.load("./images/king.png")
+
+class Queen(Piece):
+    def __init__(self, team, x, y):
+        #super used for inheritance
+        super().__init__(team, x, y)
+        #sprite is a visual object within pygame
+        self.sprite = pygame.image.load("./images/queen.png")
+
+class Knight(Piece):
+    def __init__(self, team, x, y):
+        #super used for inheritance
+        super().__init__(team, x, y)
+        #sprite is a visual object within pygame
+        self.sprite = pygame.image.load("./images/knight.png")
+
+class Pawn(Piece):
+    def __init__(self, team, x, y):
+        #super used for inheritance
+        super().__init__(team, x, y)
+        #sprite is a visual object within pygame
+        self.sprite = pygame.image.load("./images/pawn.png")
