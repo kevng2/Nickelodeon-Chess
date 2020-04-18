@@ -1,85 +1,100 @@
 import pygame
 
 class BoardPieceData(object):
-<<<<<<< HEAD
-    rank8 = ["r", "kn", "b", "q", "k", "b", "kn", "r"]
-    rank7 = ["p","p","p","p","p","p","p","p"]
-    rank6 = ["e","e","e","e","e","e","e","e"] 
-    rank5 = ["e","e","e","e","e","e","e","e"]
-    rank4 = ["e","e","e","e","e","e","e","e"] 
-    rank3 = ["e","e","e","e","e","e","e","e"]
-    rank2 = ["p","p","p","p","p","p","p","p"]
-    rank1 = ["r", "kn", "b", "q", "k", "b", "kn", "r"]
-=======
     def __init__(self):
-        #initiliazing empty array
-        self.boardArray = [[(Rook('b', 0, 0)), (Knight('b', 0, 1)), (Bishop('b', 0, 2)), (Queen('b', 0, 3)),
-                           (King('b', 0, 4)), (Bishop('b', 0, 5)), (Knight('b', 0, 6)), (Rook('b', 0, 7))],
-                          [Pawn('b', 1, n) for n in range(8)], [['e']*4 for i in range(8)],
-                          [Pawn('w', 6, n) for n in range(8)], [(Rook('w', 7, 0)), (Knight('w', 7, 1)), (Bishop('w', 7, 2)), (Queen('w', 7, 3)),
-                           (King('w', 7, 4)), (Bishop('w', 7, 5)), (Knight('w', 7, 6)), (Rook('w', 7, 7))]]
+        # 2D List of starting board positions
+        self.boardArray = [
+            # Rank 8
+           [Rook('b', 'R', 0, 0), Knight('b', 'N', 0, 1), Bishop('b', 'B', 0, 2), Queen('b', 'Q', 0, 3),
+            King('b', 'K', 0, 4), Bishop('b', 'B', 0, 5), Knight('b', 'K', 0, 6), Rook('b', 'R', 0, 7)],
 
+            # Rank 7
+           [Pawn('b', 'P', 1, n) for n in range(8)],
 
+           # Rank 6 - 3
+           [Empty('e') for j in range(8)],
+           [Empty('e') for j in range(8)],
+           [Empty('e') for j in range(8)],
+           [Empty('e') for j in range(8)],
 
+           # Rank 2
+           [Pawn('w', 'P', 6, n) for n in range(8)],
+
+           # Rank 1
+           [Rook('w', 'R', 7, 0), Knight('w', 'N', 7, 1), Bishop('w', 'B', 7, 2), Queen('w', 'Q', 7, 3),
+            King('w', 'K', 7, 4), Bishop('w', 'B', 7, 5), Knight('w', 'K', 7, 6), Rook('w', 'R', 7, 7)]
+        ]
 
 #initializing chess pieces
-
 #class piece, team is team color w or b, x is rows on board, y is columns
-
-
 class Piece(pygame.sprite.Sprite):
-    def __init__(self, team, x, y):
+    def __init__(self, team, piece, x, y):
         #used for inheritance
         super().__init__()
+        self.piece = piece
         self.team = team
         self.x = x
         self.y = y
 
 
 class Bishop(Piece):
-    def __init__(self, team, x, y):
+    def __init__(self, team, piece, x, y):
         #super used for inheritance
-        super().__init__(team, x, y)
+        super().__init__(team, piece, x, y)
+
         #sprite is a visual object within pygame
-        self.sprite = pygame.image.load("./images/bishop.png")
+        #load white or black piece depending on team
+        if(team == 'w'):
+            self.sprite = pygame.image.load("./images/bishop.png")
+        else:
+            self.sprite = pygame.image.load("./images/bishop_b.png")
 
 
 class Rook(Piece):
-    def __init__(self, team, x, y):
-        #super used for inheritance
-        super().__init__(team, x, y)
-        #sprite is a visual object within pygame
-        self.sprite = pygame.image.load("./images/rook.png")
+    def __init__(self, team, piece, x, y):
+        super().__init__(team, piece, x, y)
+        if(team == 'w'):
+            self.sprite = pygame.image.load("./images/rook.png")
+        else:
+            self.sprite = pygame.image.load("./images/rook_b.png")
 
 
 class King(Piece):
-    def __init__(self, team, x, y):
-        #super used for inheritance
-        super().__init__(team, x, y)
-        #sprite is a visual object within pygame
-        self.sprite = pygame.image.load("./images/king.png")
+    def __init__(self, team, piece, x, y):
+        super().__init__(team, piece, x, y)
+        if(team == 'w'):
+            self.sprite = pygame.image.load("./images/king.png")
+        else:
+            self.sprite = pygame.image.load("./images/king_b.png")
 
 
 class Queen(Piece):
-    def __init__(self, team, x, y):
-        #super used for inheritance
-        super().__init__(team, x, y)
-        #sprite is a visual object within pygame
-        self.sprite = pygame.image.load("./images/queen.png")
+    def __init__(self, team, piece, x, y):
+        super().__init__(team, piece, x, y)
+        if(team == 'w'):
+            self.sprite = pygame.image.load("./images/queen.png")
+        else:
+            self.sprite = pygame.image.load("./images/queen_b.png")
 
 
 class Knight(Piece):
-    def __init__(self, team, x, y):
-        #super used for inheritance
-        super().__init__(team, x, y)
-        #sprite is a visual object within pygame
-        self.sprite = pygame.image.load("./images/knight.png")
-
+    def __init__(self, team, piece, x, y):
+        super().__init__(team, piece, x, y)
+        if(team == 'w'):
+            self.sprite = pygame.image.load("./images/knight.png")
+        else:
+            self.sprite = pygame.image.load("./images/knight_b.png")
 
 class Pawn(Piece):
-    def __init__(self, team, x, y):
-        #super used for inheritance
-        super().__init__(team, x, y)
-        #sprite is a visual object within pygame
-        self.sprite = pygame.image.load("./images/pawn.png")
->>>>>>> f50f1219fdb7129c33553c3efa4fb340383d4ece
+    def __init__(self, team, piece, x, y):
+        super().__init__(team, piece, x, y)
+        if(team == 'w'):
+            self.sprite = pygame.image.load("./images/pawn.png")
+        else:
+            self.sprite = pygame.image.load("./images/pawn_b.png")
+
+# Empty Piece class, used to make printing the pieces easier
+class Empty(Piece):
+    def __init__(self, piece):
+        super().__init__(None, None, None, None)
+        self.piece = 'e' 
