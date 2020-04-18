@@ -6,7 +6,7 @@ import pieceData
 # initialize pygame
 pygame.init()
 
-# set window size 
+# set window size
 gameDisplay = pygame.display.set_mode((800, 800))
 
 # window name
@@ -16,7 +16,7 @@ gameExit = False
 # blue background, we'll change as needed
 gameDisplay.fill((51, 153, 255))
 
-squareSize = 80 
+squareSize = 80
 count = 0
 
 image = pygame.image.load('./images/king.png')
@@ -42,6 +42,6 @@ sound.music()
 while not gameExit:
     for event in pygame.event.get():
         print(event)
-
-pygame.quit()
-quit()
+        if (event.type == pygame.QUIT):
+            pygame.quit()
+            quit()
