@@ -15,7 +15,7 @@ def printBoardPieces(data):
 pygame.init()
 
 # set window size
-gameDisplay = pygame.display.set_mode((1200, 1500))
+gameDisplay = pygame.display.set_mode((1200, 1000))
 
 # window name
 pygame.display.set_caption('Nickelodeon Chess')
@@ -25,7 +25,9 @@ gameExit = False
 gameDisplay.fill((51, 153, 255))
 
 logo = pygame.image.load("NickelodeonLogo.png")
-gameDisplay.blit(logo, (-320,100))
+logo = pygame.transform.scale(logo,(320,242) )
+#gameDisplay.blit(logo, (-320,100))
+gameDisplay.blit(logo, (470,-22))
 
 squareSize = 80
 count = 0
