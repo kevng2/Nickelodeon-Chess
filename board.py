@@ -2,6 +2,7 @@ import tkinter as tk
 import sound
 import pygame
 import pieceData
+from pygame import mixer
 
 def printBoardPieces(data):
     for i in range(0, 8):
@@ -47,11 +48,15 @@ printBoardPieces(boardPosition)
 
 pygame.display.update()
 sound.music()
+SONG_END = pygame.USEREVENT + 1
+mixer.music.set_endevent(SONG_END)
 
 # Loop to print out different events, just for testing
 while not gameExit:
     for event in pygame.event.get():
         #print(event)
+        if event.type == SONG_END:
+            sound.music()
         if (event.type == pygame.QUIT):
             pygame.quit()
             quit()
