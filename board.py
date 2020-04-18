@@ -15,7 +15,7 @@ def printBoardPieces(data):
 pygame.init()
 
 # set window size
-gameDisplay = pygame.display.set_mode((1000, 1000))
+gameDisplay = pygame.display.set_mode((1200, 1500))
 
 # window name
 pygame.display.set_caption('Nickelodeon Chess')
@@ -23,6 +23,9 @@ gameExit = False
 
 # blue background, we'll change as needed
 gameDisplay.fill((51, 153, 255))
+
+logo = pygame.image.load("NickelodeonLogo.png")
+gameDisplay.blit(logo, (-320,100))
 
 squareSize = 80
 count = 0
@@ -45,6 +48,8 @@ for i in range(0, 8):
     count -= 1
 
 printBoardPieces(boardPosition)
+
+
 
 pygame.display.update()
 sound.music()
