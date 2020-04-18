@@ -1,7 +1,7 @@
-import matplotlib.pyplot as plt
 import tkinter as tk
 import sound
 import pygame
+import pieceData
 
 # initialize pygame
 pygame.init()
@@ -13,7 +13,7 @@ gameDisplay = pygame.display.set_mode((800, 800))
 pygame.display.set_caption('Nickelodeon Chess')
 gameExit = False
 
-# orange background, we'll change as needed
+# blue background, we'll change as needed
 gameDisplay.fill((51, 153, 255))
 
 squareSize = 80 

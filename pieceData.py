@@ -7,5 +7,3 @@ class BoardPieceData(object):
     rank3 = ["e","e","e","e","e","e","e","e"]
     rank2 = ["p","p","p","p","p","p","p","p"]
     rank1 = ["r", "kn", "b", "q", "k", "b", "kn", "r"]
-
-boardData = BoardPieceData()
