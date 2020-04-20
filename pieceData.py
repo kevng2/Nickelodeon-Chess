@@ -29,6 +29,8 @@ class BoardPieceData(object):
 #class piece, team is team color w or b, x is rows on board, y is columns
 class Piece(pygame.sprite.Sprite):
     def __init__(self, team, piece, x, y):
+        pygame.sprite.Sprite.__init__(self)
+
         #used for inheritance
         super().__init__()
         self.piece = piece
@@ -36,62 +38,68 @@ class Piece(pygame.sprite.Sprite):
         self.x = x
         self.y = y
 
-
 class Bishop(Piece):
     def __init__(self, team, piece, x, y):
-        #super used for inheritance
+        pygame.sprite.Sprite.__init__(self)
+
+        # super used for inheritance
         super().__init__(team, piece, x, y)
 
-        #sprite is a visual object within pygame
-        #load white or black piece depending on team
+        # sprite is a visual object within pygame
+        # load white or black piece depending on team
         if(team == 'w'):
-            self.sprite = pygame.image.load("./images/bishop.png")
+            self.image = pygame.image.load("./images/bishop.png")
         else:
-            self.sprite = pygame.image.load("./images/bishop_b.png")
+            self.image = pygame.image.load("./images/bishop_b.png")
+
+        # get the rectangle around the image, Sprite class needs this defined to
+        # move it later
+        self.rect = self.image.get_rect()
+        print(self.rect)
 
 
 class Rook(Piece):
     def __init__(self, team, piece, x, y):
         super().__init__(team, piece, x, y)
         if(team == 'w'):
-            self.sprite = pygame.image.load("./images/rook.png")
+            self.image = pygame.image.load("./images/rook.png")
         else:
-            self.sprite = pygame.image.load("./images/rook_b.png")
+            self.image = pygame.image.load("./images/rook_b.png")
 
 
 class King(Piece):
     def __init__(self, team, piece, x, y):
         super().__init__(team, piece, x, y)
         if(team == 'w'):
-            self.sprite = pygame.image.load("./images/king.png")
+            self.image = pygame.image.load("./images/king.png")
         else:
-            self.sprite = pygame.image.load("./images/king_b.png")
+            self.image = pygame.image.load("./images/king_b.png")
 
 
 class Queen(Piece):
     def __init__(self, team, piece, x, y):
         super().__init__(team, piece, x, y)
         if(team == 'w'):
-            self.sprite = pygame.image.load("./images/queen.png")
+            self.image = pygame.image.load("./images/queen.png")
         else:
-            self.sprite = pygame.image.load("./images/queen_b.png")
+            self.image = pygame.image.load("./images/queen_b.png")
 
 
 class Knight(Piece):
     def __init__(self, team, piece, x, y):
         super().__init__(team, piece, x, y)
         if(team == 'w'):
-            self.sprite = pygame.image.load("./images/knight.png")
+            self.image = pygame.image.load("./images/knight.png")
         else:
-            self.sprite = pygame.image.load("./images/knight_b.png")
+            self.image = pygame.image.load("./images/knight_b.png")
 
 class Pawn(Piece):
     def __init__(self, team, piece, x, y):
         super().__init__(team, piece, x, y)
         if(team == 'w'):
-            self.sprite = pygame.image.load("./images/pawn.png")
+            self.image = pygame.image.load("./images/pawn.png")
         else:
-            self.sprite = pygame.image.load("./images/pawn_b.png")
+            self.image = pygame.image.load("./images/pawn_b.png")
 
 # Empty Piece class, used to make printing the pieces easier
 class Empty(Piece):
