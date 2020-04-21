@@ -46,11 +46,19 @@ count = 0
 # starting position of the pieces
 boardPosition = pieceData.BoardPieceData()
 
+def text_objects(text, font):
+    textSurface = font.render(text, True, (255,255,255))
+    return textSurface, textSurface.get_rect()
 
-
+font = pygame.font.Font('some-time-later.ttf', 40)
 
 # loop to print out board, 64 squares
 for i in range(0, 8):
+    TextSurf, TextRect = text_objects(str(8-i), font)
+    TextRect.center = (275, squareSize*i +240)
+    gameDisplay.blit(TextSurf, TextRect)
+
+    pygame.display.update()
     for j in range(0, 8):
         if count % 2 == 0:
             # print orange square
@@ -63,6 +71,15 @@ for i in range(0, 8):
     # -1 to for alternating rows
     count -= 1
 
+alpha = ['A', 'B', 'C', 'D', 'E', 'F','G', 'H']
+
+for k in range(0,8):
+    TextSurf, TextRect = text_objects(alpha[k], font)
+    TextRect.center = (squareSize*k + 340,squareSize*7 +310)
+    gameDisplay.blit(TextSurf, TextRect)
+
+    pygame.display.update()
+    
 printBoardPieces(boardPosition)
 
 
