@@ -54,7 +54,7 @@ class Bishop(Piece):
 
         # get the rectangle around the image, Sprite class needs this defined to
         # move it later
-        self.rect = self.image.get_rect()
+        self.rect = pygame.Rect(300+(self.y*80), 200+(self.x*80), 80, 80)
         print(self.rect)
 
 
@@ -66,6 +66,8 @@ class Rook(Piece):
         else:
             self.image = pygame.image.load("./images/rook_b.png")
 
+        self.rect = pygame.Rect(300 + (self.y * 80), 200 + (self.x * 80), 80, 80)
+
 
 class King(Piece):
     def __init__(self, team, piece, x, y):
@@ -75,6 +77,8 @@ class King(Piece):
         else:
             self.image = pygame.image.load("./images/king_b.png")
 
+        self.rect = pygame.Rect(300 + (self.y * 80), 200 + (self.x * 80), 80, 80)
+
 
 class Queen(Piece):
     def __init__(self, team, piece, x, y):
@@ -83,6 +87,7 @@ class Queen(Piece):
             self.image = pygame.image.load("./images/queen.png")
         else:
             self.image = pygame.image.load("./images/queen_b.png")
+        self.rect = pygame.Rect(300 + (self.y * 80), 200 + (self.x * 80), 80, 80)
 
 
 class Knight(Piece):
@@ -92,6 +97,7 @@ class Knight(Piece):
             self.image = pygame.image.load("./images/knight.png")
         else:
             self.image = pygame.image.load("./images/knight_b.png")
+        self.rect = pygame.Rect(300 + (self.y * 80), 200 + (self.x * 80), 80, 80)
 
 class Pawn(Piece):
     def __init__(self, team, piece, x, y):
@@ -100,6 +106,7 @@ class Pawn(Piece):
             self.image = pygame.image.load("./images/pawn.png")
         else:
             self.image = pygame.image.load("./images/pawn_b.png")
+        self.rect = pygame.Rect(300 + (self.y * 80), 200 + (self.x * 80), 80, 80)
 
 # Empty Piece class, used to make printing the pieces easier
 class Empty(Piece):

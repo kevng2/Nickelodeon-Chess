@@ -11,11 +11,19 @@ def printBoardPieces(data):
                 # Able to use a generic call because of inheritance
                 gameDisplay.blit(data.boardArray[i][j].image, (squareSize * j + 300, squareSize * i + 200))
 
+
 # initialize pygame
 pygame.init()
 
+
 # set window size
 gameDisplay = pygame.display.set_mode((1200, 1000))
+
+#creating a surface
+#board = pygame.Surface((640, 640))
+
+
+
 
 # window name
 pygame.display.set_caption('Nickelodeon Chess')
@@ -23,6 +31,10 @@ gameExit = False
 
 # blue background, we'll change as needed
 gameDisplay.fill((51, 153, 255))
+
+#board dimensions
+width = 640
+height = 640
 
 logo = pygame.image.load("NickelodeonLogo.png")
 logo = pygame.transform.scale(logo,(320,242) )
@@ -33,6 +45,9 @@ count = 0
 
 # starting position of the pieces
 boardPosition = pieceData.BoardPieceData()
+
+
+
 
 # loop to print out board, 64 squares
 for i in range(0, 8):
@@ -50,6 +65,9 @@ for i in range(0, 8):
 
 printBoardPieces(boardPosition)
 
+
+
+
 pygame.display.update()
 sound.music()
 SONG_END = pygame.USEREVENT + 1
@@ -57,6 +75,7 @@ mixer.music.set_endevent(SONG_END)
 
 spriteList = pygame.sprite.Group()
 spriteList.add(boardPosition.boardArray[0][2])
+#spriteList.draw(gameDisplay)
 print(spriteList)
 
 # Loop to print out different events, just for testing
@@ -72,3 +91,4 @@ while not gameExit:
         if (event.type == pygame.QUIT):
             pygame.quit()
             quit()
+
