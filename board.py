@@ -74,8 +74,15 @@ SONG_END = pygame.USEREVENT + 1
 mixer.music.set_endevent(SONG_END)
 
 spriteList = pygame.sprite.Group()
-spriteList.add(boardPosition.boardArray[0][2])
-#spriteList.draw(gameDisplay)
+
+#added all sprites to board
+for i in range(8):
+    for j in range(8):
+        if (boardPosition.boardArray[i][j].piece=='e'):
+            continue
+        else:
+            spriteList.add(boardPosition.boardArray[i][j])
+
 print(spriteList)
 
 # Loop to print out different events, just for testing
