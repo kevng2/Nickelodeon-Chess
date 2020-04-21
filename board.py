@@ -15,15 +15,11 @@ def printBoardPieces(data):
 # initialize pygame
 pygame.init()
 
-
 # set window size
 gameDisplay = pygame.display.set_mode((1200, 1000))
 
 #creating a surface
 #board = pygame.Surface((640, 640))
-
-
-
 
 # window name
 pygame.display.set_caption('Nickelodeon Chess')
@@ -36,6 +32,7 @@ gameDisplay.fill((51, 153, 255))
 width = 640
 height = 640
 
+# Nickelodeon Logo
 logo = pygame.image.load("NickelodeonLogo.png")
 logo = pygame.transform.scale(logo,(320,242) )
 gameDisplay.blit(logo, (470,-22))
@@ -45,9 +42,6 @@ count = 0
 
 # starting position of the pieces
 boardPosition = pieceData.BoardPieceData()
-
-
-
 
 # loop to print out board, 64 squares
 for i in range(0, 8):
@@ -65,16 +59,20 @@ for i in range(0, 8):
 
 printBoardPieces(boardPosition)
 
-
-
-
 pygame.display.update()
+
+# music
 sound.music()
 SONG_END = pygame.USEREVENT + 1
 mixer.music.set_endevent(SONG_END)
 
+# list of sprites available
 spriteList = pygame.sprite.Group()
-spriteList.add(boardPosition.boardArray[0][2])
+for i in range(0, len(boardPosition.boardArray)):
+    for j in range(0, len(boardPosition.boardArray)):
+        if(boardPosition.boardArray[i][j].piece != 'e'):
+            spriteList.add(boardPosition.boardArray[i][j])
+
 #spriteList.draw(gameDisplay)
 print(spriteList)
 
@@ -86,9 +84,9 @@ while not gameExit:
         if event.type == pygame.MOUSEBUTTONUP:
             pos = pygame.mouse.get_pos()
             print(pos)
-            clicked_sprites = [s for s in spriteList if s.rect.collidepoint(pos)]
-            print(clicked_sprites)
+            clicked_sprite = [s for s in spriteList if s.rect.collidepoint(pos)]
         if (event.type == pygame.QUIT):
             pygame.quit()
             quit()
+    pygame.display.update()
 

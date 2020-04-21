@@ -60,6 +60,7 @@ class Bishop(Piece):
 
 class Rook(Piece):
     def __init__(self, team, piece, x, y):
+        pygame.sprite.Sprite.__init__(self)
         super().__init__(team, piece, x, y)
         if(team == 'w'):
             self.image = pygame.image.load("./images/rook.png")
@@ -67,7 +68,6 @@ class Rook(Piece):
             self.image = pygame.image.load("./images/rook_b.png")
 
         self.rect = pygame.Rect(300 + (self.y * 80), 200 + (self.x * 80), 80, 80)
-
 
 class King(Piece):
     def __init__(self, team, piece, x, y):
