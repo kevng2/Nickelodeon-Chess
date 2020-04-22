@@ -127,3 +127,4 @@ def possible_moves(x, y):
         down_right = [(x+n, y-n) for n in range(1, 8)]
         up_right = [(x+n, y+n) for n in range(1, 8)]
         up_left = [(x-n, y+n) for n in range(1, 8)]
+        moves += down_left + down_right + up_right + up_left
