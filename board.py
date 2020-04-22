@@ -24,7 +24,7 @@ def draw_move(clicked, sprites):
 def possible_moves(pieceSelected):
     moves = [] #creating an empty list of tuples of coordinates for where a piece can move
 
-    if pieceSelected.piece == 'K':
+    if pieceSelected.piece == 'N':
         moves += [(pieceSelected.x-1, pieceSelected.y-2), (pieceSelected.x-1, pieceSelected.y+2), (pieceSelected.x-2, pieceSelected.y+1), (pieceSelected.x-2, pieceSelected.y-1),
                   (pieceSelected.x+1, pieceSelected.y-2), (pieceSelected.x+1, pieceSelected.y+2), (pieceSelected.x+2, pieceSelected.y-1), (pieceSelected.x+2, pieceSelected.y+1)]
 
@@ -35,9 +35,50 @@ def possible_moves(pieceSelected):
         up_left = [(pieceSelected.x-n, pieceSelected.y+n) for n in range(1, 8)]
         moves += down_left + down_right + up_right + up_left
 
-    print(pieceSelected.x)
-    print(pieceSelected.y)
-    print(moves)
+    elif pieceSelected.piece == 'R':
+        left = [(pieceSelected.x-n, pieceSelected.y) for n in range(1, 8)]
+        right = [(pieceSelected.x+n, pieceSelected.y) for n in range(1, 8)]
+        up = [(pieceSelected.x, pieceSelected.y+n) for n in range(1, 8)]
+        down = [(pieceSelected.x, pieceSelected.y-n) for n in range(1, 8)]
+        moves += left + right + up + down
+
+    elif pieceSelected.piece == 'Q':
+        left = [(pieceSelected.x-n, pieceSelected.y) for n in range(1, 8)]
+        right = [(pieceSelected.x+n, pieceSelected.y) for n in range(1, 8)]
+        up = [(pieceSelected.x, pieceSelected.y+n) for n in range(1, 8)]
+        down = [(pieceSelected.x, pieceSelected.y-n) for n in range(1, 8)]
+
+        down_left = [(pieceSelected.x - n, pieceSelected.y - n) for n in range(1, 8)]
+        down_right = [(pieceSelected.x + n, pieceSelected.y - n) for n in range(1, 8)]
+        up_right = [(pieceSelected.x + n, pieceSelected.y + n) for n in range(1, 8)]
+        up_left = [(pieceSelected.x - n, pieceSelected.y + n) for n in range(1, 8)]
+        moves += down_left + down_right + up_right + up_left + left + right + up + down
+
+    elif pieceSelected.piece == 'K':
+        left = [(pieceSelected.x - 1, pieceSelected.y)]
+        right = [(pieceSelected.x + 1, pieceSelected.y)]
+        up = [(pieceSelected.x, pieceSelected.y + 1)]
+        down = [(pieceSelected.x, pieceSelected.y - 1)]
+
+        down_left = [(pieceSelected.x - 1, pieceSelected.y - 1)]
+        down_right = [(pieceSelected.x + 1, pieceSelected.y - 1)]
+        up_right = [(pieceSelected.x + 1, pieceSelected.y + 1)]
+        up_left = [(pieceSelected.x - 1, pieceSelected.y + 1)]
+        moves += down_left + down_right + up_right + up_left + left + right + up + down
+
+    elif pieceSelected.piece == 'P':
+        #rank 2 pawn
+        if pieceSelected.team == 'b' and pieceSelected.x == 1:
+            moves += [(pieceSelected.x + 2, pieceSelected.y), (pieceSelected.x + 1, pieceSelected.y)]
+        elif pieceSelected.team == 'w' and pieceSelected.x == 6:
+            moves += [(pieceSelected.x - 2, pieceSelected.y), (pieceSelected.x - 1, pieceSelected.y)]
+        elif pieceSelected.team == 'b':
+            moves += [(pieceSelected.x + 1, pieceSelected.y)]
+        elif pieceSelected.team == 'w':
+            moves += [(pieceSelected.x - 1, pieceSelected.y)]
+
+
+
     return moves
 
 def drawBoard():

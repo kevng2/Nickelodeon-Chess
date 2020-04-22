@@ -5,8 +5,8 @@ class BoardPieceData(object):
         # 2D List of starting board positions
         self.boardArray = [
             # Rank 8
-           [Rook('b', 'R', 0, 0), Knight('b', 'K', 0, 1), Bishop('b', 'B', 0, 2), Queen('b', 'Q', 0, 3),
-            King('b', 'K', 0, 4), Bishop('b', 'B', 0, 5), Knight('b', 'K', 0, 6), Rook('b', 'R', 0, 7)],
+           [Rook('b', 'R', 0, 0), Knight('b', 'N', 0, 1), Bishop('b', 'B', 0, 2), Queen('b', 'Q', 0, 3),
+            King('b', 'K', 0, 4), Bishop('b', 'B', 0, 5), Knight('b', 'N', 0, 6), Rook('b', 'R', 0, 7)],
 
             # Rank 7
            [Pawn('b', 'P', 1, n) for n in range(8)],
@@ -21,8 +21,8 @@ class BoardPieceData(object):
            [Pawn('w', 'P', 6, n) for n in range(8)],
 
            # Rank 1
-           [Rook('w', 'R', 7, 0), Knight('w', 'K', 7, 1), Bishop('w', 'B', 7, 2), Queen('w', 'Q', 7, 3),
-            King('w', 'K', 7, 4), Bishop('w', 'B', 7, 5), Knight('w', 'K', 7, 6), Rook('w', 'R', 7, 7)]
+           [Rook('w', 'R', 7, 0), Knight('w', 'N', 7, 1), Bishop('w', 'B', 7, 2), Queen('w', 'Q', 7, 3),
+            King('w', 'K', 7, 4), Bishop('w', 'B', 7, 5), Knight('w', 'N', 7, 6), Rook('w', 'R', 7, 7)]
         ]
 
 #initializing chess pieces
