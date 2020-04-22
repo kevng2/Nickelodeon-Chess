@@ -119,5 +119,11 @@ class Empty(Piece):
 def possible_moves(x, y):
     moves = [] #creating an empty list of tuples of coordinates for where a piece can move
 
-    if BoardPieceData.boardArray[x][y] == Knight:
+    if BoardPieceData.boardArray[x][y].piece == 'K':
         moves += [(x-1, y-2), (x-1, y+2), (x-2, y+1), (x-2, y-1), (x+1, y-2), (x+1, y+2), (x+2, y-1), (x+2, y+1)]
+
+    elif BoardPieceData.boardArray[x][y].piece == 'B':
+        down_left = [(x-n, y-n) for n in range(1, 8)]
+        down_right = [(x+n, y-n) for n in range(1, 8)]
+        up_right = [(x+n, y+n) for n in range(1, 8)]
+        up_left = [(x-n, y+n) for n in range(1, 8)]
