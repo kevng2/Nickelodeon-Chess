@@ -97,13 +97,23 @@ def possible_moves(pieceSelected):
         elif pieceSelected.team == 'w':
             moves += [(pieceSelected.x - 1, pieceSelected.y)]
 
-
-
     return moves
 
+def text_objects(text, font):
+    textSurface = font.render(text, True, WHITE)
+    return textSurface, textSurface.get_rect()
+
 def drawBoard():
+    font = pygame.font.Font('some-time-later.ttf', 40)
+    alpha = ['A', 'B', 'C', 'D', 'E', 'F','G', 'H']
+    
     count = 0
 
+    # Nickelodeon Logo
+    logo = pygame.image.load("NickelodeonLogo.png")
+    logo = pygame.transform.scale(logo,(320,242) )
+    gameDisplay.blit(logo, (470,-22))
+    
     # loop to print out board, 64 squares
     for i in range(0, 8):
         TextSurf, TextRect = text_objects(str(8-i), font)
@@ -122,6 +132,13 @@ def drawBoard():
             count += 1
         # -1 to for alternating rows
         count -= 1
+        
+        for k in range(0,8):
+            TextSurf, TextRect = text_objects(alpha[k], font)
+            TextRect.center = (squareSize*k + 340,squareSize*7 +310)
+            gameDisplay.blit(TextSurf, TextRect)
+
+            pygame.display.update()
 
     #black(left side) captured pieces columns
     pygame.draw.rect(gameDisplay, BLACK, [squareSize - 5, squareSize + 115, squareSize*2 + 15, squareSize*8 + 10])
@@ -225,33 +242,13 @@ gameDisplay.fill(BLUE)
 width = 640
 height = 640
 
-# Nickelodeon Logo
-logo = pygame.image.load("NickelodeonLogo.png")
-logo = pygame.transform.scale(logo,(320,242) )
-gameDisplay.blit(logo, (470,-22))
-
 squareSize = 80
 count = 0
 
 # starting position of the pieces
 boardPosition = pieceData.BoardPieceData()
 
-
-def text_objects(text, font):
-    textSurface = font.render(text, True, WHITE)
-    return textSurface, textSurface.get_rect()
-
-font = pygame.font.Font('some-time-later.ttf', 40)
-alpha = ['A', 'B', 'C', 'D', 'E', 'F','G', 'H']
-
 drawBoard()
-
-for k in range(0,8):
-    TextSurf, TextRect = text_objects(alpha[k], font)
-    TextRect.center = (squareSize*k + 340,squareSize*7 +310)
-    gameDisplay.blit(TextSurf, TextRect)
-
-    pygame.display.update()
 
 #printBoardPieces(boardPosition)
 
