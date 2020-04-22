@@ -6,7 +6,7 @@ class BoardPieceData(object):
         self.boardArray = [
             # Rank 8
            [Rook('b', 'R', 0, 0), Knight('b', 'N', 0, 1), Bishop('b', 'B', 0, 2), Queen('b', 'Q', 0, 3),
-            King('b', 'K', 0, 4), Bishop('b', 'B', 0, 5), Knight('b', 'K', 0, 6), Rook('b', 'R', 0, 7)],
+            King('b', 'K', 0, 4), Bishop('b', 'B', 0, 5), Knight('b', 'N', 0, 6), Rook('b', 'R', 0, 7)],
 
             # Rank 7
            [Pawn('b', 'P', 1, n) for n in range(8)],
@@ -22,7 +22,7 @@ class BoardPieceData(object):
 
            # Rank 1
            [Rook('w', 'R', 7, 0), Knight('w', 'N', 7, 1), Bishop('w', 'B', 7, 2), Queen('w', 'Q', 7, 3),
-            King('w', 'K', 7, 4), Bishop('w', 'B', 7, 5), Knight('w', 'K', 7, 6), Rook('w', 'R', 7, 7)]
+            King('w', 'K', 7, 4), Bishop('w', 'B', 7, 5), Knight('w', 'N', 7, 6), Rook('w', 'R', 7, 7)]
         ]
 
 #initializing chess pieces
@@ -115,16 +115,4 @@ class Empty(Piece):
         super().__init__(None, None, None, None)
         self.piece = 'e' 
 
-#function takes in a value for the piece coordinate and gives possible moves
-def possible_moves(x, y):
-    moves = [] #creating an empty list of tuples of coordinates for where a piece can move
 
-    if BoardPieceData.boardArray[x][y].piece == 'K':
-        moves += [(x-1, y-2), (x-1, y+2), (x-2, y+1), (x-2, y-1), (x+1, y-2), (x+1, y+2), (x+2, y-1), (x+2, y+1)]
-
-    elif BoardPieceData.boardArray[x][y].piece == 'B':
-        down_left = [(x-n, y-n) for n in range(1, 8)]
-        down_right = [(x+n, y-n) for n in range(1, 8)]
-        up_right = [(x+n, y+n) for n in range(1, 8)]
-        up_left = [(x-n, y+n) for n in range(1, 8)]
-        moves += down_left + down_right + up_right + up_left

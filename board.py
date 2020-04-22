@@ -8,6 +8,79 @@ def printBoardPieces(data):
     for piece in data:
         gameDisplay.blit(piece.image, (piece.rect))
 
+
+def draw_move(clicked, sprites):
+    move = possible_moves(clicked)
+    for n in move:
+        if n[1] < 0 or n[0] < 0 or n[1] > 7 or n[0] > 7:
+            continue
+        #elif (al for al in sprites if al.x and al.y in n[0] and n[1]):
+            #continue
+        else:
+            pygame.draw.circle(gameDisplay, (0, 205, 0), ((340+(n[1]*80)), (240+(n[0]*80))), 7)
+
+
+#function takes in a value for the piece coordinate and gives possible moves
+def possible_moves(pieceSelected):
+    moves = [] #creating an empty list of tuples of coordinates for where a piece can move
+
+    if pieceSelected.piece == 'N':
+        moves += [(pieceSelected.x-1, pieceSelected.y-2), (pieceSelected.x-1, pieceSelected.y+2), (pieceSelected.x-2, pieceSelected.y+1), (pieceSelected.x-2, pieceSelected.y-1),
+                  (pieceSelected.x+1, pieceSelected.y-2), (pieceSelected.x+1, pieceSelected.y+2), (pieceSelected.x+2, pieceSelected.y-1), (pieceSelected.x+2, pieceSelected.y+1)]
+
+    elif pieceSelected.piece == 'B':
+        down_left = [(pieceSelected.x-n, pieceSelected.y-n) for n in range(1, 8)]
+        down_right = [(pieceSelected.x+n, pieceSelected.y-n) for n in range(1, 8)]
+        up_right = [(pieceSelected.x+n, pieceSelected.y+n) for n in range(1, 8)]
+        up_left = [(pieceSelected.x-n, pieceSelected.y+n) for n in range(1, 8)]
+        moves += down_left + down_right + up_right + up_left
+
+    elif pieceSelected.piece == 'R':
+        left = [(pieceSelected.x-n, pieceSelected.y) for n in range(1, 8)]
+        right = [(pieceSelected.x+n, pieceSelected.y) for n in range(1, 8)]
+        up = [(pieceSelected.x, pieceSelected.y+n) for n in range(1, 8)]
+        down = [(pieceSelected.x, pieceSelected.y-n) for n in range(1, 8)]
+        moves += left + right + up + down
+
+    elif pieceSelected.piece == 'Q':
+        left = [(pieceSelected.x-n, pieceSelected.y) for n in range(1, 8)]
+        right = [(pieceSelected.x+n, pieceSelected.y) for n in range(1, 8)]
+        up = [(pieceSelected.x, pieceSelected.y+n) for n in range(1, 8)]
+        down = [(pieceSelected.x, pieceSelected.y-n) for n in range(1, 8)]
+
+        down_left = [(pieceSelected.x - n, pieceSelected.y - n) for n in range(1, 8)]
+        down_right = [(pieceSelected.x + n, pieceSelected.y - n) for n in range(1, 8)]
+        up_right = [(pieceSelected.x + n, pieceSelected.y + n) for n in range(1, 8)]
+        up_left = [(pieceSelected.x - n, pieceSelected.y + n) for n in range(1, 8)]
+        moves += down_left + down_right + up_right + up_left + left + right + up + down
+
+    elif pieceSelected.piece == 'K':
+        left = [(pieceSelected.x - 1, pieceSelected.y)]
+        right = [(pieceSelected.x + 1, pieceSelected.y)]
+        up = [(pieceSelected.x, pieceSelected.y + 1)]
+        down = [(pieceSelected.x, pieceSelected.y - 1)]
+
+        down_left = [(pieceSelected.x - 1, pieceSelected.y - 1)]
+        down_right = [(pieceSelected.x + 1, pieceSelected.y - 1)]
+        up_right = [(pieceSelected.x + 1, pieceSelected.y + 1)]
+        up_left = [(pieceSelected.x - 1, pieceSelected.y + 1)]
+        moves += down_left + down_right + up_right + up_left + left + right + up + down
+
+    elif pieceSelected.piece == 'P':
+        #rank 2 pawn
+        if pieceSelected.team == 'b' and pieceSelected.x == 1:
+            moves += [(pieceSelected.x + 2, pieceSelected.y), (pieceSelected.x + 1, pieceSelected.y)]
+        elif pieceSelected.team == 'w' and pieceSelected.x == 6:
+            moves += [(pieceSelected.x - 2, pieceSelected.y), (pieceSelected.x - 1, pieceSelected.y)]
+        elif pieceSelected.team == 'b':
+            moves += [(pieceSelected.x + 1, pieceSelected.y)]
+        elif pieceSelected.team == 'w':
+            moves += [(pieceSelected.x - 1, pieceSelected.y)]
+
+
+
+    return moves
+
 def drawBoard():
     count = 0
 
@@ -153,6 +226,7 @@ while not gameExit:
             # stores the sprite that user clicked
             clicked_sprite = [s for s in spriteList if s.rect.collidepoint(pos)]
 
+
             # will draw the image at the specified square
             if pieceClicked == True:
                 # Clear the board
@@ -160,12 +234,13 @@ while not gameExit:
 
                 # Redraw board
                 drawBoard()
-
                 # get the x, y points for which square the sprite belongs in
                 pos = getRectPoints(pos)
 
                 # the the Object's rectangle data to the position
-                pieceSelected.rect = pygame.Rect(pos[0], pos[1], 80, 80) 
+                pieceSelected.rect = pygame.Rect(pos[0], pos[1], 80, 80)
+                pieceSelected.y = int((pieceSelected.rect[0]-300) / 80)
+                pieceSelected.x = int((pieceSelected.rect[1]-200) / 80)
 
                 # Redraw pieces
                 printBoardPieces(spriteList)
@@ -177,6 +252,8 @@ while not gameExit:
             if clicked_sprite:
                 pieceClicked = True
                 pieceSelected = clicked_sprite[0]
+                draw_move(pieceSelected, spriteList)
+
             
         if (event.type == pygame.QUIT):
             pygame.quit()
