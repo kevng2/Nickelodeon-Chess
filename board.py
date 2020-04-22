@@ -22,7 +22,7 @@ def drawBoard():
             if count % 2 == 0:
                 # print orange square
                 # rect(surface, color, rect), rect includes [int x, int y, width, height]
-                pygame.draw.rect(gameDisplay, WHITE, [squareSize*j + 300, squareSize*i + 200, squareSize, squareSize])
+                pygame.draw.rect(gameDisplay, GREEN, [squareSize*j + 300, squareSize*i + 200, squareSize, squareSize])
             else:
                 # print white squares
                 pygame.draw.rect(gameDisplay, ORANGE, [squareSize*j + 300, squareSize*i + 200, squareSize, squareSize])
@@ -33,7 +33,7 @@ def drawBoard():
 def getRectPoints(dest):
     # if the click is out of the bounds of the board
     if dest[0] < 300 or dest[0] > 940 or dest[1] < 200 or dest[1] > 840:
-        return (dest[0], dest[1]) 
+        return (dest[0], dest[1])
 
     # Coordinates of where the white and orange squares were drawn
     cornerPointsX = [860, 780, 700, 620, 540, 460, 380, 300]
@@ -42,19 +42,19 @@ def getRectPoints(dest):
     xPoint = dest[0]
     yPoint = dest[1]
 
-    # loop through each value in the list to find which 
+    # loop through each value in the list to find which
     # square the click was in
     for x in cornerPointsX:
         if xPoint > x:
             xPoint = x
             break
-    
+
     for y in cornerPointsY:
         if yPoint > y:
             yPoint = y
             break
 
-    return (xPoint, yPoint) 
+    return (xPoint, yPoint)
 
 # initialize pygame
 pygame.init()
@@ -69,9 +69,10 @@ gameDisplay = pygame.display.set_mode((1200, 1000))
 pygame.display.set_caption('Nickelodeon Chess')
 gameExit = False
 
-BLUE = (51, 153, 255) 
+BLUE = (51, 153, 255)
 WHITE = (255, 255, 255)
-ORANGE = (204,102,0) 
+ORANGE = (204,102,0)
+GREEN = (50, 205, 50)
 
 # blue background, we'll change as needed
 gameDisplay.fill(BLUE)
@@ -107,7 +108,7 @@ for k in range(0,8):
     gameDisplay.blit(TextSurf, TextRect)
 
     pygame.display.update()
-    
+
 #printBoardPieces(boardPosition)
 
 pygame.display.update()
@@ -133,7 +134,7 @@ print(spriteList)
 printBoardPieces(spriteList)
 
 # Will check if one of the sprites was selcted
-pieceClicked = False 
+pieceClicked = False
 
 # Will hold the image to redraw it on the board once the user
 # selected another square
@@ -165,7 +166,7 @@ while not gameExit:
                 pos = getRectPoints(pos)
 
                 # the the Object's rectangle data to the position
-                pieceSelected.rect = pygame.Rect(pos[0], pos[1], 80, 80) 
+                pieceSelected.rect = pygame.Rect(pos[0], pos[1], 80, 80)
 
                 # Redraw pieces
                 printBoardPieces(spriteList)
@@ -177,7 +178,7 @@ while not gameExit:
             if clicked_sprite:
                 pieceClicked = True
                 pieceSelected = clicked_sprite[0]
-            
+
         if (event.type == pygame.QUIT):
             pygame.quit()
             quit()
