@@ -48,11 +48,9 @@ class Bishop(Piece):
         # sprite is a visual object within pygame
         # load white or black piece depending on team
         if(team == 'w'):
-            #self.image = pygame.transform.scale(pygame.image.load("./CartoonPieces/Kevin_Bishop_W.png"), (80, 80))
-            self.image = pygame.transform.scale(pygame.image.load("./piecesBorder/Kevin_Bishop_W.png"), (80, 80))
+            self.image = pygame.transform.scale(pygame.image.load("./CartoonPieces/Kevin_Bishop_W.png"), (80, 80))
         else:
-            #self.image = pygame.transform.scale(pygame.image.load("./CartoonPieces/Gerald_Bishop_B.png"), (80, 80))
-            self.image = pygame.transform.scale(pygame.image.load("./piecesBorder/Gerald_Bishop_B.png"), (80, 80))
+            self.image = pygame.transform.scale(pygame.image.load("./CartoonPieces/Gerald_Bishop_B.png"), (80, 80))
 
         # get the rectangle around the image, Sprite class needs this defined to
         # move it later
@@ -65,11 +63,9 @@ class Rook(Piece):
         pygame.sprite.Sprite.__init__(self)
         super().__init__(team, piece, x, y)
         if(team == 'w'):
-            #self.image = pygame.transform.scale(pygame.image.load("./CartoonPieces/Pinapple_Rook_W.png"), (80, 80))
-            self.image = pygame.transform.scale(pygame.image.load("./piecesBorder/Pinapple_Rook_W.png"), (80, 80))
+            self.image = pygame.transform.scale(pygame.image.load("./CartoonPieces/Pinapple_Rook_W.png"), (80, 80))
         else:
-            #self.image = pygame.transform.scale(pygame.image.load("./CartoonPieces/Tiki_Rook_B.png"), (80, 80))
-            self.image = pygame.transform.scale(pygame.image.load("./piecesBorder/Tiki_Rook_B.png"), (80, 80))
+            self.image = pygame.transform.scale(pygame.image.load("./CartoonPieces/Tiki_Rook_B.png"), (80, 80))
 
         self.rect = pygame.Rect(300 + (self.y * 80), 200 + (self.x * 80), 80, 80)
 
@@ -77,11 +73,9 @@ class King(Piece):
     def __init__(self, team, piece, x, y):
         super().__init__(team, piece, x, y)
         if(team == 'w'):
-            #self.image = pygame.transform.scale(pygame.image.load("./CartoonPieces/Cosmo_King_W.png"), (80,80))
-            self.image = pygame.transform.scale(pygame.image.load("./piecesBorder/Cosmo_King_W.png"), (80,80))
+            self.image = pygame.transform.scale(pygame.image.load("./CartoonPieces/Cosmo_King_W.png"), (80,80))
         else:
-            #self.image = pygame.transform.scale(pygame.image.load("./CartoonPieces/Danny_King_B.png"), (80,80))
-            self.image = pygame.transform.scale(pygame.image.load("./piecesBorder/Danny_King_B.png"), (80,80))
+            self.image = pygame.transform.scale(pygame.image.load("./CartoonPieces/Danny_King_B.png"), (80,80))
 
         self.rect = pygame.Rect(300 + (self.y * 80), 200 + (self.x * 80), 80, 80)
 
@@ -91,11 +85,9 @@ class Queen(Piece):
     def __init__(self, team, piece, x, y):
         super().__init__(team, piece, x, y)
         if(team == 'w'):
-            #self.image = pygame.transform.scale(pygame.image.load("./CartoonPieces/Wanda_Queen_W.png"), (80,80))
-            self.image = pygame.transform.scale(pygame.image.load("./piecesBorder/Wanda_Queen_W.png"), (80,80))
+            self.image = pygame.transform.scale(pygame.image.load("./CartoonPieces/Wanda_Queen_W.png"), (80,80))
         else:
-            #self.image = pygame.transform.scale(pygame.image.load("./CartoonPieces/Jenny_Queen_B.png"), (80, 80))
-            self.image = pygame.transform.scale(pygame.image.load("./piecesBorder/Jenny_Queen_B.png"), (80,80))
+            self.image = pygame.transform.scale(pygame.image.load("./CartoonPieces/Jenny_Queen_B.png"), (80, 80))
         self.rect = pygame.Rect(300 + (self.y * 80), 200 + (self.x * 80), 80, 80)
 
 
@@ -103,40 +95,24 @@ class Knight(Piece):
     def __init__(self, team, piece, x, y):
         super().__init__(team, piece, x, y)
         if(team == 'w'):
-            #self.image = pygame.transform.scale(pygame.image.load("./CartoonPieces/Mystery_Knight_W.png"), (80, 80))
-            self.image = pygame.transform.scale(pygame.image.load("./piecesBorder/Mystery_Knight_W.png"), (80, 80))
+            self.image = pygame.transform.scale(pygame.image.load("./CartoonPieces/Mystery_Knight_W.png"), (80, 80))
         else:
-            #self.image = pygame.transform.scale(pygame.image.load("./CartoonPieces/Reptar_Knight_B.png"), (80, 80))
-            self.image = pygame.transform.scale(pygame.image.load("./piecesBorder/Reptar_Knight_B.png"), (80, 80))
+            self.image = pygame.transform.scale(pygame.image.load("./CartoonPieces/Reptar_Knight_B.png"), (80, 80))
         self.rect = pygame.Rect(300 + (self.y * 80), 200 + (self.x * 80), 80, 80)
 
 class Pawn(Piece):
     def __init__(self, team, piece, x, y):
         super().__init__(team, piece, x, y)
         if(team == 'w'):
-            #self.image = pygame.transform.scale(pygame.image.load("./CartoonPieces/Jellyfish_Pawn_W.png"), (80, 80))
-            self.image = pygame.transform.scale(pygame.image.load("./piecesBorder/Jellyfish_Pawn_W.png"), (80, 80))
+            self.image = pygame.transform.scale(pygame.image.load("./CartoonPieces/Jellyfish_Pawn_W.png"), (80, 80))
         else:
-            #self.image = pygame.transform.scale(pygame.image.load("./CartoonPieces/NoMame_Pawn_B.png"), (80, 80))
-            self.image = pygame.transform.scale(pygame.image.load("./piecesBorder/NoMame_Pawn_B.png"), (80, 80))
+            self.image = pygame.transform.scale(pygame.image.load("./CartoonPieces/NoMame_Pawn_B.png"), (80, 80))
         self.rect = pygame.Rect(300 + (self.y * 80), 200 + (self.x * 80), 80, 80)
 
 # Empty Piece class, used to make printing the pieces easier
 class Empty(Piece):
     def __init__(self, piece):
         super().__init__(None, None, None, None)
-        self.piece = 'e'
+        self.piece = 'e' 
 
-#function takes in a value for the piece coordinate and gives possible moves
-def possible_moves(x, y):
-    moves = [] #creating an empty list of tuples of coordinates for where a piece can move
 
-    if BoardPieceData.boardArray[x][y].piece == 'K':
-        moves += [(x-1, y-2), (x-1, y+2), (x-2, y+1), (x-2, y-1), (x+1, y-2), (x+1, y+2), (x+2, y-1), (x+2, y+1)]
-
-    elif BoardPieceData.boardArray[x][y].piece == 'B':
-        down_left = [(x-n, y-n) for n in range(1, 8)]
-        down_right = [(x+n, y-n) for n in range(1, 8)]
-        up_right = [(x+n, y+n) for n in range(1, 8)]
-        up_left = [(x-n, y+n) for n in range(1, 8)]
-        moves += down_left + down_right + up_right + up_left
