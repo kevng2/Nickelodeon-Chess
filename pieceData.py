@@ -80,6 +80,7 @@ class King(Piece):
         self.rect = pygame.Rect(300 + (self.y * 80), 200 + (self.x * 80), 80, 80)
 
 
+
 class Queen(Piece):
     def __init__(self, team, piece, x, y):
         super().__init__(team, piece, x, y)
@@ -113,3 +114,10 @@ class Empty(Piece):
     def __init__(self, piece):
         super().__init__(None, None, None, None)
         self.piece = 'e' 
+
+#function takes in a value for the piece coordinate and gives possible moves
+def possible_moves(x, y):
+    moves = [] #creating an empty list of tuples of coordinates for where a piece can move
+
+    if BoardPieceData.boardArray[x][y] == Knight:
+        moves += [(x-1, y-2), (x-1, y+2), (x-2, y+1), (x-2, y-1), (x+1, y-2), (x+1, y+2), (x+2, y-1), (x+2, y+1)]
