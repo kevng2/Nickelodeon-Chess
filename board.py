@@ -258,10 +258,15 @@ while not gameExit:
                 # get the x, y points for which square the sprite belongs in
                 pos = getRectPoints(pos)
 
-                # the the Object's rectangle data to the position
-                pieceSelected.rect = pygame.Rect(pos[0], pos[1], 80, 80)
-                pieceSelected.y = int((pieceSelected.rect[0]-300) / 80)
-                pieceSelected.x = int((pieceSelected.rect[1]-200) / 80)
+                #print ((int((pos[1]-200) / 80), int((pos[0]-300) / 80)))
+                #print (isOccupied(int((pos[1]-200) / 80),int((pos[0]-300) / 80)))
+                #print ((int((pos[0]-300) / 80), int((pos[1]-200) / 80)))
+                if (isOccupied(int((pos[1]-200) / 80),int((pos[0]-300) / 80)) == False):
+
+                    # the the Object's rectangle data to the position
+                    pieceSelected.rect = pygame.Rect(pos[0], pos[1], 80, 80)
+                    pieceSelected.y = int((pieceSelected.rect[0]-300) / 80)
+                    pieceSelected.x = int((pieceSelected.rect[1]-200) / 80)
 
                 # Redraw pieces
                 printBoardPieces(spriteList)
