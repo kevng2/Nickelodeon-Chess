@@ -10,7 +10,7 @@ def printBoardPieces(data):
 
 
 def draw_move(clicked, sprites):
-    move = possible_moves(clicked.x, clicked.y)
+    move = possible_moves(clicked)
     for n in move:
         if n[1] < 0 or n[0] < 0 or n[1] > 7 or n[0] > 7:
             continue
@@ -21,19 +21,22 @@ def draw_move(clicked, sprites):
 
 
 #function takes in a value for the piece coordinate and gives possible moves
-def possible_moves(x, y):
+def possible_moves(pieceSelected):
     moves = [] #creating an empty list of tuples of coordinates for where a piece can move
 
-    if boardPosition.boardArray[x][y].piece == 'K':
-        moves += [(x-1, y-2), (x-1, y+2), (x-2, y+1), (x-2, y-1), (x+1, y-2), (x+1, y+2), (x+2, y-1), (x+2, y+1)]
+    if pieceSelected.piece == 'K':
+        moves += [(pieceSelected.x-1, pieceSelected.y-2), (pieceSelected.x-1, pieceSelected.y+2), (pieceSelected.x-2, pieceSelected.y+1), (pieceSelected.x-2, pieceSelected.y-1),
+                  (pieceSelected.x+1, pieceSelected.y-2), (pieceSelected.x+1, pieceSelected.y+2), (pieceSelected.x+2, pieceSelected.y-1), (pieceSelected.x+2, pieceSelected.y+1)]
 
-    elif boardPosition.boardArray[x][y].piece == 'B':
-        down_left = [(x-n, y-n) for n in range(1, 8)]
-        down_right = [(x+n, y-n) for n in range(1, 8)]
-        up_right = [(x+n, y+n) for n in range(1, 8)]
-        up_left = [(x-n, y+n) for n in range(1, 8)]
+    elif pieceSelected.piece == 'B':
+        down_left = [(pieceSelected.x-n, pieceSelected.y-n) for n in range(1, 8)]
+        down_right = [(pieceSelected.x+n, pieceSelected.y-n) for n in range(1, 8)]
+        up_right = [(pieceSelected.x+n, pieceSelected.y+n) for n in range(1, 8)]
+        up_left = [(pieceSelected.x-n, pieceSelected.y+n) for n in range(1, 8)]
         moves += down_left + down_right + up_right + up_left
 
+    print(pieceSelected.x)
+    print(pieceSelected.y)
     print(moves)
     return moves
 
@@ -178,7 +181,6 @@ while not gameExit:
 
             # Gets the x,y coordinates of the mouse
             pos = pygame.mouse.get_pos()
-            x_move, y_move = pygame.mouse.get_pos()
 
             # stores the sprite that user clicked
             clicked_sprite = [s for s in spriteList if s.rect.collidepoint(pos)]
@@ -195,7 +197,9 @@ while not gameExit:
                 pos = getRectPoints(pos)
 
                 # the the Object's rectangle data to the position
-                pieceSelected.rect = pygame.Rect(pos[0], pos[1], 80, 80) 
+                pieceSelected.rect = pygame.Rect(pos[0], pos[1], 80, 80)
+                pieceSelected.y = int((pieceSelected.rect[0]-300) / 80)
+                pieceSelected.x = int((pieceSelected.rect[1]-200) / 80)
 
                 # Redraw pieces
                 printBoardPieces(spriteList)
@@ -207,7 +211,8 @@ while not gameExit:
             if clicked_sprite:
                 pieceClicked = True
                 pieceSelected = clicked_sprite[0]
-                draw_move(clicked_sprite[0], spriteList)
+                draw_move(pieceSelected, spriteList)
+
             
         if (event.type == pygame.QUIT):
             pygame.quit()
