@@ -1,6 +1,5 @@
 import tkinter as tk
 import sound
-import font
 import pygame
 from pygame import mixer
 

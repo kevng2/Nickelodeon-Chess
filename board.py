@@ -5,11 +5,30 @@ import pieceData
 from pygame import mixer
 
 def printBoardPieces(data):
+    for piece in data:
+        gameDisplay.blit(piece.image, (piece.rect))
+
+def drawBoard():
+    count = 0
+
+    # loop to print out board, 64 squares
     for i in range(0, 8):
+        TextSurf, TextRect = text_objects(str(8-i), font)
+        TextRect.center = (275, squareSize*i +240)
+        gameDisplay.blit(TextSurf, TextRect)
+
+        pygame.display.update()
         for j in range(0, 8):
-            if data.boardArray[i][j].piece != 'e':
-                # Able to use a generic call because of inheritance
-                gameDisplay.blit(data.boardArray[i][j].image, (squareSize * j + 300, squareSize * i + 200))
+            if count % 2 == 0:
+                # print orange square
+                # rect(surface, color, rect), rect includes [int x, int y, width, height]
+                pygame.draw.rect(gameDisplay, WHITE, [squareSize*j + 300, squareSize*i + 200, squareSize, squareSize])
+            else:
+                # print white squares
+                pygame.draw.rect(gameDisplay, ORANGE, [squareSize*j + 300, squareSize*i + 200, squareSize, squareSize])
+            count += 1
+        # -1 to for alternating rows
+        count -= 1
 
 def getRectPoints(dest):
     # if the click is out of the bounds of the board
@@ -50,8 +69,12 @@ gameDisplay = pygame.display.set_mode((1200, 1000))
 pygame.display.set_caption('Nickelodeon Chess')
 gameExit = False
 
+BLUE = (51, 153, 255) 
+WHITE = (255, 255, 255)
+ORANGE = (204,102,0) 
+
 # blue background, we'll change as needed
-gameDisplay.fill((51, 153, 255))
+gameDisplay.fill(BLUE)
 
 #board dimensions
 width = 640
@@ -65,36 +88,18 @@ gameDisplay.blit(logo, (470,-22))
 squareSize = 80
 count = 0
 
-
 # starting position of the pieces
 boardPosition = pieceData.BoardPieceData()
 
+
 def text_objects(text, font):
-    textSurface = font.render(text, True, (255,255,255))
+    textSurface = font.render(text, True, WHITE)
     return textSurface, textSurface.get_rect()
 
 font = pygame.font.Font('some-time-later.ttf', 40)
-
-# loop to print out board, 64 squares
-for i in range(0, 8):
-    TextSurf, TextRect = text_objects(str(8-i), font)
-    TextRect.center = (275, squareSize*i +240)
-    gameDisplay.blit(TextSurf, TextRect)
-
-    pygame.display.update()
-    for j in range(0, 8):
-        if count % 2 == 0:
-            # print orange square
-            # rect(surface, color, rect), rect includes [int x, int y, width, height]
-            pygame.draw.rect(gameDisplay, (255,255,255), [squareSize*j + 300, squareSize*i + 200, squareSize, squareSize])
-        else:
-            # print white squares
-            pygame.draw.rect(gameDisplay, (204,102,0), [squareSize*j + 300, squareSize*i + 200, squareSize, squareSize])
-        count += 1
-    # -1 to for alternating rows
-    count -= 1
-
 alpha = ['A', 'B', 'C', 'D', 'E', 'F','G', 'H']
+
+drawBoard()
 
 for k in range(0,8):
     TextSurf, TextRect = text_objects(alpha[k], font)
@@ -103,7 +108,7 @@ for k in range(0,8):
 
     pygame.display.update()
     
-printBoardPieces(boardPosition)
+#printBoardPieces(boardPosition)
 
 pygame.display.update()
 
@@ -125,6 +130,8 @@ for i in range(8):
 
 print(spriteList)
 
+printBoardPieces(spriteList)
+
 # Will check if one of the sprites was selcted
 pieceClicked = False 
 
@@ -137,6 +144,7 @@ while not gameExit:
     for event in pygame.event.get():
         if event.type == SONG_END:
             sound.music()
+
         if event.type == pygame.MOUSEBUTTONUP:
 
             # Gets the x,y coordinates of the mouse
@@ -147,16 +155,30 @@ while not gameExit:
 
             # will draw the image at the specified square
             if pieceClicked == True:
-                gameDisplay.blit(pieceSelected, getRectPoints(pos))
+                # Clear the board
+                gameDisplay.fill(BLUE)
+
+                # Redraw board
+                drawBoard()
+
+                # get the x, y points for which square the sprite belongs in
+                pos = getRectPoints(pos)
+
+                # the the Object's rectangle data to the position
+                pieceSelected.rect = pygame.Rect(pos[0], pos[1], 80, 80) 
+
+                # Redraw pieces
+                printBoardPieces(spriteList)
+
                 pieceClicked = False
 
             # Store the clicked sprite for the next run of the loop
+            # to redraw
             if clicked_sprite:
                 pieceClicked = True
-                pieceSelected = clicked_sprite[0].image
+                pieceSelected = clicked_sprite[0]
             
         if (event.type == pygame.QUIT):
             pygame.quit()
             quit()
     pygame.display.update()
-
