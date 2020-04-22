@@ -8,17 +8,37 @@ def printBoardPieces(data):
     for piece in data:
         gameDisplay.blit(piece.image, (piece.rect))
 
+def isOccupied(i,j):
+    if (boardPosition.boardArray[i][j].piece =='e'):
+        return False
+    return True
+def isOccupiedBy(i,j, color, piece):
+    if (boardPosition.boardArray[i][j].piece =='e'):
+        print ("Empty Space at (", i, ",",j , ")")
+        return False
+    if (boardPosition.boardArray[i][j].team == color):
+        print (color, piece, "at (", i, ",", j, ")" )
+        return True
+    return False
+
 
 def draw_move(clicked, sprites):
     move = possible_moves(clicked)
+    print ("Clicked Piece:", clicked.piece)
     for n in move:
+
         if n[1] < 0 or n[0] < 0 or n[1] > 7 or n[0] > 7:
             continue
         #elif (al for al in sprites if al.x and al.y in n[0] and n[1]):
             #continue
+        elif (isOccupied(n[0],n[1]) == True):
+            isOccupiedBy(n[0],n[1],boardPosition.boardArray[n[0]][n[1]].team,boardPosition.boardArray[n[0]][n[1]].piece)
+            continue
         else:
-            pygame.draw.circle(gameDisplay, (0, 205, 0), ((340+(n[1]*80)), (240+(n[0]*80))), 7)
-
+            if (clicked.team == 'w'):
+                pygame.draw.circle(gameDisplay, (0, 205, 0), ((340+(n[1]*80)), (240+(n[0]*80))), 7)
+            else:
+                pygame.draw.circle(gameDisplay, (255, 8, 0), ((340+(n[1]*80)), (240+(n[0]*80))), 7)
 
 #function takes in a value for the piece coordinate and gives possible moves
 def possible_moves(pieceSelected):
@@ -95,7 +115,7 @@ def drawBoard():
             if count % 2 == 0:
                 # print orange square
                 # rect(surface, color, rect), rect includes [int x, int y, width, height]
-                pygame.draw.rect(gameDisplay, WHITE, [squareSize*j + 300, squareSize*i + 200, squareSize, squareSize])
+                pygame.draw.rect(gameDisplay, BRIGHTORANGE, [squareSize*j + 300, squareSize*i + 200, squareSize, squareSize])
             else:
                 # print white squares
                 pygame.draw.rect(gameDisplay, ORANGE, [squareSize*j + 300, squareSize*i + 200, squareSize, squareSize])
@@ -106,7 +126,7 @@ def drawBoard():
 def getRectPoints(dest):
     # if the click is out of the bounds of the board
     if dest[0] < 300 or dest[0] > 940 or dest[1] < 200 or dest[1] > 840:
-        return (dest[0], dest[1]) 
+        return (dest[0], dest[1])
 
     # Coordinates of where the white and orange squares were drawn
     cornerPointsX = [860, 780, 700, 620, 540, 460, 380, 300]
@@ -115,19 +135,19 @@ def getRectPoints(dest):
     xPoint = dest[0]
     yPoint = dest[1]
 
-    # loop through each value in the list to find which 
+    # loop through each value in the list to find which
     # square the click was in
     for x in cornerPointsX:
         if xPoint > x:
             xPoint = x
             break
-    
+
     for y in cornerPointsY:
         if yPoint > y:
             yPoint = y
             break
 
-    return (xPoint, yPoint) 
+    return (xPoint, yPoint)
 
 # initialize pygame
 pygame.init()
@@ -142,9 +162,10 @@ gameDisplay = pygame.display.set_mode((1200, 1000))
 pygame.display.set_caption('Nickelodeon Chess')
 gameExit = False
 
-BLUE = (51, 153, 255) 
+BLUE = (51, 153, 255)
 WHITE = (255, 255, 255)
-ORANGE = (204,102,0) 
+ORANGE = (204,102,0)
+BRIGHTORANGE = (255, 195, 77)
 
 # blue background, we'll change as needed
 gameDisplay.fill(BLUE)
@@ -180,7 +201,7 @@ for k in range(0,8):
     gameDisplay.blit(TextSurf, TextRect)
 
     pygame.display.update()
-    
+
 #printBoardPieces(boardPosition)
 
 pygame.display.update()
@@ -206,7 +227,7 @@ print(spriteList)
 printBoardPieces(spriteList)
 
 # Will check if one of the sprites was selcted
-pieceClicked = False 
+pieceClicked = False
 
 # Will hold the image to redraw it on the board once the user
 # selected another square
@@ -254,7 +275,7 @@ while not gameExit:
                 pieceSelected = clicked_sprite[0]
                 draw_move(pieceSelected, spriteList)
 
-            
+
         if (event.type == pygame.QUIT):
             pygame.quit()
             quit()
