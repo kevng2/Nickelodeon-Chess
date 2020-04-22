@@ -113,15 +113,65 @@ def drawBoard():
         pygame.display.update()
         for j in range(0, 8):
             if count % 2 == 0:
-                # print orange square
+                # print brightorange square
                 # rect(surface, color, rect), rect includes [int x, int y, width, height]
                 pygame.draw.rect(gameDisplay, BRIGHTORANGE, [squareSize*j + 300, squareSize*i + 200, squareSize, squareSize])
             else:
-                # print white squares
+                # print orange squares
                 pygame.draw.rect(gameDisplay, ORANGE, [squareSize*j + 300, squareSize*i + 200, squareSize, squareSize])
             count += 1
         # -1 to for alternating rows
         count -= 1
+
+    #black(left side) captured pieces columns
+    pygame.draw.rect(gameDisplay, BLACK, [squareSize - 5, squareSize + 115, squareSize*2 + 15, squareSize*8 + 10])
+    for i in range(0, 8):
+        TextSurf, TextRect = text_objects(str(8-i), font)
+        TextRect.center = (275, squareSize*i +240)
+        gameDisplay.blit(TextSurf, TextRect)
+
+        pygame.display.update()
+        if (i % 2 == 0):
+            pygame.draw.rect(gameDisplay, BRIGHTORANGE, [squareSize, squareSize*i + 200, squareSize, squareSize])
+        else:
+            pygame.draw.rect(gameDisplay, ORANGE, [squareSize, squareSize*i + 200, squareSize, squareSize])
+    for i in range(0, 8):
+        TextSurf, TextRect = text_objects(str(8-i), font)
+        TextRect.center = (275, squareSize*i +240)
+        gameDisplay.blit(TextSurf, TextRect)
+
+        pygame.display.update()
+        if (i % 2 == 0):
+            pygame.draw.rect(gameDisplay, BRIGHTORANGE, [squareSize + 85, squareSize*i + 200, squareSize, squareSize])
+        else:
+            pygame.draw.rect(gameDisplay, ORANGE, [squareSize + 85, squareSize*i + 200, squareSize, squareSize])
+
+    #white (right side) captured pieces column
+    pygame.draw.rect(gameDisplay, WHITE, [squareSize + 910, squareSize + 115, squareSize*2 + 15, squareSize*8 + 10])
+    for i in range(0, 8):
+        TextSurf, TextRect = text_objects(str(8-i), font)
+        TextRect.center = (275, squareSize*i +240)
+        gameDisplay.blit(TextSurf, TextRect)
+
+        pygame.display.update()
+        if (i % 2 == 0):
+            pygame.draw.rect(gameDisplay, BRIGHTORANGE, [squareSize + 1000, squareSize*i + 200, squareSize, squareSize])
+        else:
+            pygame.draw.rect(gameDisplay, ORANGE, [squareSize + 1000, squareSize*i + 200, squareSize, squareSize])
+    for i in range(0, 8):
+        TextSurf, TextRect = text_objects(str(8-i), font)
+        TextRect.center = (275, squareSize*i +240)
+        gameDisplay.blit(TextSurf, TextRect)
+
+        pygame.display.update()
+        if (i % 2 == 0):
+            pygame.draw.rect(gameDisplay, BRIGHTORANGE, [squareSize + 915, squareSize*i + 200, squareSize, squareSize])
+        else:
+            pygame.draw.rect(gameDisplay, ORANGE, [squareSize + 915, squareSize*i + 200, squareSize, squareSize])
+
+
+
+
 
 def getRectPoints(dest):
     # if the click is out of the bounds of the board
@@ -166,6 +216,7 @@ BLUE = (51, 153, 255)
 WHITE = (255, 255, 255)
 ORANGE = (204,102,0)
 BRIGHTORANGE = (255, 195, 77)
+BLACK = (0, 0, 0)
 
 # blue background, we'll change as needed
 gameDisplay.fill(BLUE)
