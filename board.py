@@ -11,6 +11,31 @@ def printBoardPieces(data):
                 # Able to use a generic call because of inheritance
                 gameDisplay.blit(data.boardArray[i][j].image, (squareSize * j + 300, squareSize * i + 200))
 
+def getRectPoints(dest):
+    # if the click is out of the bounds of the board
+    if dest[0] < 300 or dest[0] > 940 or dest[1] < 200 or dest[1] > 840:
+        return (dest[0], dest[1]) 
+
+    # Coordinates of where the white and orange squares were drawn
+    cornerPointsX = [860, 780, 700, 620, 540, 460, 380, 300]
+    cornerPointsY = [760, 680, 600, 520, 440, 360, 280, 200]
+
+    xPoint = dest[0]
+    yPoint = dest[1]
+
+    # loop through each value in the list to find which 
+    # square the click was in
+    for x in cornerPointsX:
+        if xPoint > x:
+            xPoint = x
+            break
+    
+    for y in cornerPointsY:
+        if yPoint > y:
+            yPoint = y
+            break
+
+    return (xPoint, yPoint) 
 
 # initialize pygame
 pygame.init()
@@ -100,7 +125,12 @@ for i in range(8):
 
 print(spriteList)
 
-isClicked = True 
+# Will check if one of the sprites was selcted
+pieceClicked = False 
+
+# Will hold the image to redraw it on the board once the user
+# selected another square
+pieceSelected = None
 
 # Loop to print out different events, just for testing
 while not gameExit:
@@ -108,10 +138,23 @@ while not gameExit:
         if event.type == SONG_END:
             sound.music()
         if event.type == pygame.MOUSEBUTTONUP:
-            isClicked = not isClicked
+
+            # Gets the x,y coordinates of the mouse
             pos = pygame.mouse.get_pos()
+
+            # stores the sprite that user clicked
             clicked_sprite = [s for s in spriteList if s.rect.collidepoint(pos)]
-            print(clicked_sprite)
+
+            # will draw the image at the specified square
+            if pieceClicked == True:
+                gameDisplay.blit(pieceSelected, getRectPoints(pos))
+                pieceClicked = False
+
+            # Store the clicked sprite for the next run of the loop
+            if clicked_sprite:
+                pieceClicked = True
+                pieceSelected = clicked_sprite[0].image
+            
         if (event.type == pygame.QUIT):
             pygame.quit()
             quit()
