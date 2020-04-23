@@ -15,6 +15,8 @@ def updateBoard(board,row0, col0, row1, col1):
 
 def printBoardPieces(data):
     for piece in data:
+        if (piece.taken == 1):
+            continue
         gameDisplay.blit(piece.image, (piece.rect))
 
 def isOccupied(i,j):
@@ -122,14 +124,14 @@ def text_objects(text, font):
 def drawBoard():
     font = pygame.font.Font('some-time-later.ttf', 40)
     alpha = ['A', 'B', 'C', 'D', 'E', 'F','G', 'H']
-    
+
     count = 0
 
     # Nickelodeon Logo
     logo = pygame.image.load("NickelodeonLogo.png")
     logo = pygame.transform.scale(logo,(320,242) )
     gameDisplay.blit(logo, (470,-22))
-    
+
     # loop to print out board, 64 squares
     for i in range(0, 8):
         TextSurf, TextRect = text_objects(str(8-i), font)
@@ -148,7 +150,7 @@ def drawBoard():
             count += 1
         # -1 to for alternating rows
         count -= 1
-        
+
         for k in range(0,8):
             TextSurf, TextRect = text_objects(alpha[k], font)
             TextRect.center = (squareSize*k + 340,squareSize*7 +310)
@@ -297,6 +299,10 @@ pieceClicked = False
 # selected another square
 pieceSelected = None
 
+#check if piece is being taken
+enemyClicked = False
+enemy = None
+
 # Loop to print out different events, just for testing
 while not gameExit:
     for event in pygame.event.get():
@@ -336,9 +342,16 @@ while not gameExit:
                             pieceSelected.rect = pygame.Rect(pos[0], pos[1], 80, 80)
                             pieceSelected.y = int((pieceSelected.rect[0]-300) / 80)
                             pieceSelected.x = int((pieceSelected.rect[1]-200) / 80)
-                
+
+                        elif (isOccupied(int((pos[1]-200) / 80), int((pos[0]-300) / 80)) == True and isOccupiedBy(int((pos[1]-200) / 80),int((pos[0]-300) / 80),enemy,boardPosition.boardArray[int((pos[1]-200) / 80)][int((pos[0]-300) / 80)].piece) == True):
+                            #a piece has been taken
+                            pieceSelected.rect = pygame.Rect(pos[0], pos[1], 80, 80)
+                            pieceSelected.y = int((pieceSelected.rect[0]-300) / 80)
+                            pieceSelected.x = int((pieceSelected.rect[1]-200) / 80)
+                            enemyClicked = True
+
                         updateBoard(boardPosition.boardArray, int((oldPos[1]-200) / 80), int((oldPos[0]-300) / 80), int((pos[1]-200) / 80),int((pos[0]-300) / 80))
-                    
+
                         # Redraw pieces
                         printBoardPieces(spriteList)
 
@@ -353,6 +366,14 @@ while not gameExit:
             if clicked_sprite:
                 pieceClicked = True
                 pieceSelected = clicked_sprite[0]
+                if (pieceSelected.team == 'w'):
+                    enemy = 'b'
+                else:
+                    enemy = 'w'
+                if (enemyClicked == True):
+                    pieceSelected.taken = 1
+                    enemyClicked = False
+                    printBoardPieces(spriteList)
                 validlist = draw_move(pieceSelected, spriteList)
                 oldPos = pos
 
