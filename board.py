@@ -4,7 +4,7 @@ import pygame
 import pieceData
 from pygame import mixer
 
-updateBoard(board,row0, col0, row1, col1):
+def updateBoard(board,row0, col0, row1, col1):
     if board[row1][col1].team != board[row0][col0].team:
         if board[row1][col1].piece != 'e':
             board[row1][col1] = pieceData.Empty('e')
@@ -338,7 +338,8 @@ while not gameExit:
                 pieceClicked = True
                 pieceSelected = clicked_sprite[0]
                 draw_move(pieceSelected, spriteList)
-
+                oldPos = pos
+                print(int((oldPos[1]-200) / 80),int((oldPos[0]-300) / 80))
 
         if (event.type == pygame.QUIT):
             pygame.quit()
