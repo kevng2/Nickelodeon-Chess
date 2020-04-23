@@ -21,7 +21,7 @@ def printBoardPieces(data):
     for piece in data:
         if (piece.taken == 1):
             if (piece.team == 'b'):
-                if (j >= 8):
+                if (k >= 8):
                     piece.rect = pygame.Rect(squareSize + 85, squareSize*j + 200, 80, 80)
                     piece.x = squareSize + 85
                     piece.y = squareSize*j + 200
@@ -30,11 +30,11 @@ def printBoardPieces(data):
                 else:
                     piece.rect = pygame.Rect(squareSize, squareSize*k + 200, 80, 80)
                     piece.x = squareSize
-                    piece.y = squareSize*j + 200
+                    piece.y = squareSize*k + 200
                     gameDisplay.blit(piece.image, (piece.rect))
                     k = k + 1
             elif (piece.team == 'w'):
-                if (k >= 8):
+                if (m >= 8):
                     piece.rect = pygame.Rect(squareSize + 915, squareSize*l + 200, 80, 80)
                     piece.x = squareSize + 915
                     piece.y = squareSize*l + 200
@@ -354,9 +354,9 @@ while not gameExit:
                 # get the x, y points for which square the sprite belongs in
                 pos = getRectPoints(pos)
 
-                if (pieceSelected.x == int((pos[1]-200) / 80) and pieceSelected.y == int((pos[1]-200) / 80)):
-                    print ("Same Sprite clicked twice")
-                    continue
+                #if (pieceSelected.x == int((pos[1]-200) / 80) and pieceSelected.y == int((pos[1]-200) / 80)):
+                    #print ("Same Sprite clicked twice")
+                    #continue
                 for m in validlist:
                     if (int((pos[1]-200) / 80),int((pos[0]-300) / 80)) == m:
 
