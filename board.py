@@ -54,6 +54,7 @@ def draw_move(clicked, sprites):
                     pygame.draw.circle(gameDisplay, (0, 205, 0), ((340+(n[1]*80)), (240+(n[0]*80))), 7)
                 else:
                     pygame.draw.circle(gameDisplay, (255, 8, 0), ((340+(n[1]*80)), (240+(n[0]*80))), 7)
+    return valid
 
 #function takes in a value for the piece coordinate and gives possible moves
 def possible_moves(pieceSelected):
