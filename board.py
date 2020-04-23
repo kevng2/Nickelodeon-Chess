@@ -14,10 +14,40 @@ def updateBoard(board,row0, col0, row1, col1):
         board[row1][col1] = temp
 
 def printBoardPieces(data):
+    j = 0
+    k = 0
+    l = 0
+    m = 0
     for piece in data:
         if (piece.taken == 1):
-            continue
-        gameDisplay.blit(piece.image, (piece.rect))
+            if (piece.team == 'b'):
+                if (j >= 8):
+                    piece.rect = pygame.Rect(squareSize + 85, squareSize*j + 200, 80, 80)
+                    piece.x = squareSize + 85
+                    piece.y = squareSize*j + 200
+                    gameDisplay.blit(piece.image, (piece.rect))
+                    j = j + 1
+                else:
+                    piece.rect = pygame.Rect(squareSize, squareSize*k + 200, 80, 80)
+                    piece.x = squareSize
+                    piece.y = squareSize*j + 200
+                    gameDisplay.blit(piece.image, (piece.rect))
+                    k = k + 1
+            elif (piece.team == 'w'):
+                if (k >= 8):
+                    piece.rect = pygame.Rect(squareSize + 915, squareSize*l + 200, 80, 80)
+                    piece.x = squareSize + 915
+                    piece.y = squareSize*l + 200
+                    gameDisplay.blit(piece.image, (piece.rect))
+                    l = l + 1
+                else:
+                    piece.rect = pygame.Rect(squareSize + 1000, squareSize*m + 200, 80, 80)
+                    piece.x = squareSize + 1000
+                    piece.y = squareSize*m + 200
+                    gameDisplay.blit(piece.image, (piece.rect))
+                    m = m + 1
+        else:
+            gameDisplay.blit(piece.image, (piece.rect))
 
 def isOccupied(i,j):
     if (boardPosition.boardArray[i][j].piece =='e'):
@@ -324,6 +354,9 @@ while not gameExit:
                 # get the x, y points for which square the sprite belongs in
                 pos = getRectPoints(pos)
 
+                if (pieceSelected.x == int((pos[1]-200) / 80) and pieceSelected.y == int((pos[1]-200) / 80)):
+                    print ("Same Sprite clicked twice")
+                    continue
                 for m in validlist:
                     if (int((pos[1]-200) / 80),int((pos[0]-300) / 80)) == m:
 
@@ -356,7 +389,6 @@ while not gameExit:
                         printBoardPieces(spriteList)
 
                         pieceClicked = False
-
                 else:
                     drawBoard()
                     printBoardPieces(spriteList)
@@ -374,8 +406,18 @@ while not gameExit:
                     pieceSelected.taken = 1
                     enemyClicked = False
                     printBoardPieces(spriteList)
-                validlist = draw_move(pieceSelected, spriteList)
-                oldPos = pos
+                    pieceSelected = pieceData.Empty('e')
+                    clicked_sprite[0] = pieceData.Empty('e')
+                    #print (pieceSelected.x, pieceSelected.y)
+                    #boardPosition.boardArray[pieceSelected.x][pieceSelected.y] = pieceData.Empty('e')
+                    #updateBoard(boardPosition.boardArray,row0, col0, row1, col1)
+                    #pieceSelected.piece = None
+                    #pieceSelected.team = None
+                    #pieceSelected.x = None
+                    #pieceSelected.y = None
+                else:
+                    validlist = draw_move(pieceSelected, spriteList)
+                    oldPos = pos
 
         if (event.type == pygame.QUIT):
             pygame.quit()
