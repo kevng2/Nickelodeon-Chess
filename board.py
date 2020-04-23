@@ -312,7 +312,7 @@ while not gameExit:
 
 
             # will draw the image at the specified square
-                        if pieceClicked == True:
+            if pieceClicked == True:
 
                 # get the x, y points for which square the sprite belongs in
                 pos = getRectPoints(pos)
