@@ -32,6 +32,7 @@ def isOccupiedBy(i,j, color, piece):
 
 
 def draw_move(clicked, sprites):
+    valid = []
     move = possible_moves(clicked)
     print ("Clicked Piece:", clicked.piece)
     for m in move:
@@ -42,8 +43,13 @@ def draw_move(clicked, sprites):
                 #continue
             elif (isOccupied(n[0],n[1]) == True):
                 isOccupiedBy(n[0],n[1],boardPosition.boardArray[n[0]][n[1]].team,boardPosition.boardArray[n[0]][n[1]].piece)
-                break
+                valid += [(n[0], n[1])]
+                if clicked.piece == 'N':
+                    continue
+                else:
+                    break
             else:
+                valid += [(n[0], n[1])]
                 if (clicked.team == 'w'):
                     pygame.draw.circle(gameDisplay, (0, 205, 0), ((340+(n[1]*80)), (240+(n[0]*80))), 7)
                 else:
@@ -306,40 +312,48 @@ while not gameExit:
 
 
             # will draw the image at the specified square
-            if pieceClicked == True:
-                # Clear the board
-                gameDisplay.fill(BLUE)
+                        if pieceClicked == True:
 
-                # Redraw board
-                drawBoard()
                 # get the x, y points for which square the sprite belongs in
                 pos = getRectPoints(pos)
 
-                #print ((int((pos[1]-200) / 80), int((pos[0]-300) / 80)))
-                #print (isOccupied(int((pos[1]-200) / 80),int((pos[0]-300) / 80)))
-                #print ((int((pos[0]-300) / 80), int((pos[1]-200) / 80)))
-                if (isOccupied(int((pos[1]-200) / 80),int((pos[0]-300) / 80)) == False):
+                for m in validlist:
+                    if (int((pos[1]-200) / 80),int((pos[0]-300) / 80)) == m:
 
-                    # the the Object's rectangle data to the position
-                    pieceSelected.rect = pygame.Rect(pos[0], pos[1], 80, 80)
-                    pieceSelected.y = int((pieceSelected.rect[0]-300) / 80)
-                    pieceSelected.x = int((pieceSelected.rect[1]-200) / 80)
+                        # Clear the board
+                        gameDisplay.fill(BLUE)
+
+                        # Redraw board
+                        #drawBoard()
+
+                        #print ((int((pos[1]-200) / 80), int((pos[0]-300) / 80)))
+                        #print (isOccupied(int((pos[1]-200) / 80),int((pos[0]-300) / 80)))
+                        #print ((int((pos[0]-300) / 80), int((pos[1]-200) / 80)))
+                        if (isOccupied(int((pos[1]-200) / 80),int((pos[0]-300) / 80)) == False):
+
+                            # the the Object's rectangle data to the position
+                            pieceSelected.rect = pygame.Rect(pos[0], pos[1], 80, 80)
+                            pieceSelected.y = int((pieceSelected.rect[0]-300) / 80)
+                            pieceSelected.x = int((pieceSelected.rect[1]-200) / 80)
                 
-                updateBoard(boardPosition.boardArray, int((oldPos[1]-200) / 80), int((oldPos[0]-300) / 80), int((pos[1]-200) / 80),int((pos[0]-300) / 80))
+                        updateBoard(boardPosition.boardArray, int((oldPos[1]-200) / 80), int((oldPos[0]-300) / 80), int((pos[1]-200) / 80),int((pos[0]-300) / 80))
                     
-                # Redraw pieces
-                printBoardPieces(spriteList)
+                        # Redraw pieces
+                        printBoardPieces(spriteList)
 
-                pieceClicked = False
+                        pieceClicked = False
+
+                else:
+                    drawBoard()
+                    printBoardPieces(spriteList)
 
             # Store the clicked sprite for the next run of the loop
             # to redraw
             if clicked_sprite:
                 pieceClicked = True
                 pieceSelected = clicked_sprite[0]
-                draw_move(pieceSelected, spriteList)
+                validlist = draw_move(pieceSelected, spriteList)
                 oldPos = pos
-                print(int((oldPos[1]-200) / 80),int((oldPos[0]-300) / 80))
 
         if (event.type == pygame.QUIT):
             pygame.quit()
