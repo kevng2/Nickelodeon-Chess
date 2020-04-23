@@ -4,6 +4,15 @@ import pygame
 import pieceData
 from pygame import mixer
 
+updateBoard(board,row0, col0, row1, col1):
+    if board[row1][col1].team != board[row0][col0].team:
+        if board[row1][col1].piece != 'e':
+            board[row1][col1] = pieceData.Empty('e')
+
+        temp = board[row0][col0]
+        board[row0][col0] = board[row1][col1]
+        board[row1][col1] = temp
+
 def printBoardPieces(data):
     for piece in data:
         gameDisplay.blit(piece.image, (piece.rect))
@@ -315,7 +324,9 @@ while not gameExit:
                     pieceSelected.rect = pygame.Rect(pos[0], pos[1], 80, 80)
                     pieceSelected.y = int((pieceSelected.rect[0]-300) / 80)
                     pieceSelected.x = int((pieceSelected.rect[1]-200) / 80)
-
+                
+                updateBoard(boardPosition.boardArray, int((oldPos[1]-200) / 80), int((oldPos[0]-300) / 80), int((pos[1]-200) / 80),int((pos[0]-300) / 80))
+                    
                 # Redraw pieces
                 printBoardPieces(spriteList)
 
