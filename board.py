@@ -34,42 +34,42 @@ def isOccupiedBy(i,j, color, piece):
 def draw_move(clicked, sprites):
     move = possible_moves(clicked)
     print ("Clicked Piece:", clicked.piece)
-    for n in move:
-
-        if n[1] < 0 or n[0] < 0 or n[1] > 7 or n[0] > 7:
-            continue
-        #elif (al for al in sprites if al.x and al.y in n[0] and n[1]):
-            #continue
-        elif (isOccupied(n[0],n[1]) == True):
-            isOccupiedBy(n[0],n[1],boardPosition.boardArray[n[0]][n[1]].team,boardPosition.boardArray[n[0]][n[1]].piece)
-            continue
-        else:
-            if (clicked.team == 'w'):
-                pygame.draw.circle(gameDisplay, (0, 205, 0), ((340+(n[1]*80)), (240+(n[0]*80))), 7)
+    for m in move:
+        for n in m:
+            if n[1] < 0 or n[0] < 0 or n[1] > 7 or n[0] > 7:
+                continue
+            #elif (al for al in sprites if al.x and al.y in n[0] and n[1]):
+                #continue
+            elif (isOccupied(n[0],n[1]) == True):
+                isOccupiedBy(n[0],n[1],boardPosition.boardArray[n[0]][n[1]].team,boardPosition.boardArray[n[0]][n[1]].piece)
+                break
             else:
-                pygame.draw.circle(gameDisplay, (255, 8, 0), ((340+(n[1]*80)), (240+(n[0]*80))), 7)
+                if (clicked.team == 'w'):
+                    pygame.draw.circle(gameDisplay, (0, 205, 0), ((340+(n[1]*80)), (240+(n[0]*80))), 7)
+                else:
+                    pygame.draw.circle(gameDisplay, (255, 8, 0), ((340+(n[1]*80)), (240+(n[0]*80))), 7)
 
 #function takes in a value for the piece coordinate and gives possible moves
 def possible_moves(pieceSelected):
     moves = [] #creating an empty list of tuples of coordinates for where a piece can move
 
     if pieceSelected.piece == 'N':
-        moves += [(pieceSelected.x-1, pieceSelected.y-2), (pieceSelected.x-1, pieceSelected.y+2), (pieceSelected.x-2, pieceSelected.y+1), (pieceSelected.x-2, pieceSelected.y-1),
-                  (pieceSelected.x+1, pieceSelected.y-2), (pieceSelected.x+1, pieceSelected.y+2), (pieceSelected.x+2, pieceSelected.y-1), (pieceSelected.x+2, pieceSelected.y+1)]
+        moves += [[(pieceSelected.x-1, pieceSelected.y-2), (pieceSelected.x-1, pieceSelected.y+2), (pieceSelected.x-2, pieceSelected.y+1), (pieceSelected.x-2, pieceSelected.y-1),
+                  (pieceSelected.x+1, pieceSelected.y-2), (pieceSelected.x+1, pieceSelected.y+2), (pieceSelected.x+2, pieceSelected.y-1), (pieceSelected.x+2, pieceSelected.y+1)]]
 
     elif pieceSelected.piece == 'B':
         down_left = [(pieceSelected.x-n, pieceSelected.y-n) for n in range(1, 8)]
         down_right = [(pieceSelected.x+n, pieceSelected.y-n) for n in range(1, 8)]
         up_right = [(pieceSelected.x+n, pieceSelected.y+n) for n in range(1, 8)]
         up_left = [(pieceSelected.x-n, pieceSelected.y+n) for n in range(1, 8)]
-        moves += down_left + down_right + up_right + up_left
+        moves += [down_left, down_right, up_right, up_left]
 
     elif pieceSelected.piece == 'R':
         left = [(pieceSelected.x-n, pieceSelected.y) for n in range(1, 8)]
         right = [(pieceSelected.x+n, pieceSelected.y) for n in range(1, 8)]
         up = [(pieceSelected.x, pieceSelected.y+n) for n in range(1, 8)]
         down = [(pieceSelected.x, pieceSelected.y-n) for n in range(1, 8)]
-        moves += left + right + up + down
+        moves += [left, right, up, down]
 
     elif pieceSelected.piece == 'Q':
         left = [(pieceSelected.x-n, pieceSelected.y) for n in range(1, 8)]
@@ -81,7 +81,7 @@ def possible_moves(pieceSelected):
         down_right = [(pieceSelected.x + n, pieceSelected.y - n) for n in range(1, 8)]
         up_right = [(pieceSelected.x + n, pieceSelected.y + n) for n in range(1, 8)]
         up_left = [(pieceSelected.x - n, pieceSelected.y + n) for n in range(1, 8)]
-        moves += down_left + down_right + up_right + up_left + left + right + up + down
+        moves += [down_left, down_right, up_right, up_left, left, right, up, down]
 
     elif pieceSelected.piece == 'K':
         left = [(pieceSelected.x - 1, pieceSelected.y)]
@@ -93,18 +93,18 @@ def possible_moves(pieceSelected):
         down_right = [(pieceSelected.x + 1, pieceSelected.y - 1)]
         up_right = [(pieceSelected.x + 1, pieceSelected.y + 1)]
         up_left = [(pieceSelected.x - 1, pieceSelected.y + 1)]
-        moves += down_left + down_right + up_right + up_left + left + right + up + down
+        moves += [down_left, down_right, up_right, up_left, left, right, up, down]
 
     elif pieceSelected.piece == 'P':
         #rank 2 pawn
         if pieceSelected.team == 'b' and pieceSelected.x == 1:
-            moves += [(pieceSelected.x + 2, pieceSelected.y), (pieceSelected.x + 1, pieceSelected.y)]
+            moves += [[(pieceSelected.x + 2, pieceSelected.y), (pieceSelected.x + 1, pieceSelected.y)]]
         elif pieceSelected.team == 'w' and pieceSelected.x == 6:
-            moves += [(pieceSelected.x - 2, pieceSelected.y), (pieceSelected.x - 1, pieceSelected.y)]
+            moves += [[(pieceSelected.x - 2, pieceSelected.y), (pieceSelected.x - 1, pieceSelected.y)]]
         elif pieceSelected.team == 'b':
-            moves += [(pieceSelected.x + 1, pieceSelected.y)]
+            moves += [[(pieceSelected.x + 1, pieceSelected.y)]]
         elif pieceSelected.team == 'w':
-            moves += [(pieceSelected.x - 1, pieceSelected.y)]
+            moves += [[(pieceSelected.x - 1, pieceSelected.y)]]
 
     return moves
 
