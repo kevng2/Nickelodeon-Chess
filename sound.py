@@ -33,4 +33,5 @@ def music():
         queueSong = random.choice(musicList)
     currSong = queueSong
     mixer.music.load("./sound/" + queueSong)
+    mixer.music.set_volume(0.3)
     mixer.music.play()
