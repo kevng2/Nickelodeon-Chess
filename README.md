@@ -2,7 +2,9 @@
 Chess but with Nickelodeon Characters
 </br>
 Description: Nickelodeon Chess is just a simple chess game with a Nickelodeon flavor to it. The goal is to restrict the movement of chess pieces based on a set of allowed moves like in other chess programs.
+</br>
 Details About Interface: To move a piece, click on the piece and then click on the square you want to move it to.
+</br>
 Libraries: Pygame- used for creating the board and adding sprites
            sound-used for playing the music
            tkinter - used for the GUI
