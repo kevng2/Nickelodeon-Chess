@@ -6,6 +6,8 @@ Details About Interface: To move a piece, click on the piece and then click on t
 Libraries: Pygame- used for creating the board and adding sprites
            sound-used for playing the music
            tkinter - used for the GUI
+</br>
+Issues:Currently after capturing a move you have to click off the board for the board to update.
 </br></br>
 Other Resources:
 </br>
@@ -18,9 +20,9 @@ Other Resources:
           </br>
 Extra Features:
 </br>
-          Chess timer
+          Turn Button
           </br>
-          Start Screen with a settings page
+          Start Screen 
           </br>
           Side board to put captured chess pieces
           </br>
