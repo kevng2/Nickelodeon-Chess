@@ -171,7 +171,7 @@ def possible_moves(pieceSelected):
                     wdiagr += [(pieceSelected.x - 1, pieceSelected.y + 1)]
 
             if not isOccupied(pieceSelected.x - 1, pieceSelected.y):
-                moves += [[(pieceSelected.x + 1, pieceSelected.y)] + bdiagl + bdiagr]
+                moves += [[(pieceSelected.x - 1, pieceSelected.y)] + bdiagl + bdiagr]
             else:
                 moves += [bdiagl, bdiagr]
 
