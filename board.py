@@ -53,6 +53,7 @@ def isOccupied(i,j):
     if (boardPosition.boardArray[i][j].piece =='e'):
         return False
     return True
+
 def isOccupiedBy(i,j, color, piece):
     if (boardPosition.boardArray[i][j].piece =='e'):
         print ("Empty Space at (", i, ",",j , ")")
@@ -60,6 +61,7 @@ def isOccupiedBy(i,j, color, piece):
     if (boardPosition.boardArray[i][j].team == color):
         print (color, piece, "at (", i, ",", j, ")" )
         return True
+
     return False
 
 
@@ -76,10 +78,10 @@ def draw_move(clicked, sprites):
             elif (isOccupied(n[0],n[1]) == True):
                 isOccupiedBy(n[0],n[1],boardPosition.boardArray[n[0]][n[1]].team,boardPosition.boardArray[n[0]][n[1]].piece)
                 valid += [(n[0], n[1])]
-                if clicked.piece == 'N':
-                    continue
-                else:
-                    break
+                #if clicked.piece == 'N':
+                    #continue
+                #else:
+                    #continue
             else:
                 valid += [(n[0], n[1])]
                 if (clicked.team == 'w'):
@@ -149,21 +151,21 @@ def possible_moves(pieceSelected):
             moves += [[(pieceSelected.x - 2, pieceSelected.y), (pieceSelected.x - 1, pieceSelected.y)]]
 
         elif pieceSelected.team == 'b':
-            if isOccupiedBy(pieceSelected.x + 1, pieceSelected.y - 1, 'w', 'P'):
+            if isOccupied(pieceSelected.x + 1, pieceSelected.y - 1):
                 bdiagl += [(pieceSelected.x + 1, pieceSelected.y - 1)]
-
-            if isOccupiedBy(pieceSelected.x + 1, pieceSelected.y + 1, 'w', 'P'):
-                bdiagr += [(pieceSelected.x + 1, pieceSelected.y + 1)]
+            if pieceSelected.y + 1 < 8:
+                if isOccupied(pieceSelected.x + 1, pieceSelected.y + 1):
+                    bdiagr += [(pieceSelected.x + 1, pieceSelected.y + 1)]
 
             moves += [[(pieceSelected.x + 1, pieceSelected.y)] + bdiagl + bdiagr]
             print(moves)
 
         elif pieceSelected.team == 'w':
-            if isOccupiedBy(pieceSelected.x - 1, pieceSelected.y - 1, 'b', 'P'):
+            if isOccupied(pieceSelected.x - 1, pieceSelected.y - 1):
                 wdiagl += [(pieceSelected.x - 1, pieceSelected.y - 1)]
-
-            if isOccupiedBy(pieceSelected.x - 1, pieceSelected.y + 1, 'w', 'P'):
-                wdiagr += [(pieceSelected.x - 1, pieceSelected.y + 1)]
+            if pieceSelected.y + 1 < 8:
+                if isOccupied(pieceSelected.x - 1, pieceSelected.y + 1) :
+                    wdiagr += [(pieceSelected.x - 1, pieceSelected.y + 1)]
 
             moves += [[(pieceSelected.x - 1, pieceSelected.y)] + wdiagl + wdiagr]
 
