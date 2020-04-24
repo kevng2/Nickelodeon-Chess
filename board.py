@@ -90,11 +90,13 @@ def draw_move(clicked, sprites):
 
 #function takes in a value for the piece coordinate and gives possible moves
 def possible_moves(pieceSelected):
+
     moves = [] #creating an empty list of tuples of coordinates for where a piece can move
 
     if pieceSelected.piece == 'N':
         moves += [[(pieceSelected.x-1, pieceSelected.y-2), (pieceSelected.x-1, pieceSelected.y+2), (pieceSelected.x-2, pieceSelected.y+1), (pieceSelected.x-2, pieceSelected.y-1),
                   (pieceSelected.x+1, pieceSelected.y-2), (pieceSelected.x+1, pieceSelected.y+2), (pieceSelected.x+2, pieceSelected.y-1), (pieceSelected.x+2, pieceSelected.y+1)]]
+        print(moves)
 
     elif pieceSelected.piece == 'B':
         down_left = [(pieceSelected.x-n, pieceSelected.y-n) for n in range(1, 8)]
@@ -136,16 +138,39 @@ def possible_moves(pieceSelected):
 
     elif pieceSelected.piece == 'P':
         #rank 2 pawn
+        wdiagl = []
+        wdiagr = []
+        bdiagl = []
+        bdiagr = []
         if pieceSelected.team == 'b' and pieceSelected.x == 1:
             moves += [[(pieceSelected.x + 2, pieceSelected.y), (pieceSelected.x + 1, pieceSelected.y)]]
+
         elif pieceSelected.team == 'w' and pieceSelected.x == 6:
             moves += [[(pieceSelected.x - 2, pieceSelected.y), (pieceSelected.x - 1, pieceSelected.y)]]
+
         elif pieceSelected.team == 'b':
-            moves += [[(pieceSelected.x + 1, pieceSelected.y)]]
+            if isOccupiedBy(pieceSelected.x + 1, pieceSelected.y - 1, 'w', 'P'):
+                bdiagl += [(pieceSelected.x + 1, pieceSelected.y - 1)]
+
+            if isOccupiedBy(pieceSelected.x + 1, pieceSelected.y + 1, 'w', 'P'):
+                bdiagr += [(pieceSelected.x + 1, pieceSelected.y + 1)]
+
+            moves += [[(pieceSelected.x + 1, pieceSelected.y)] + bdiagl + bdiagr]
+            print(moves)
+
         elif pieceSelected.team == 'w':
-            moves += [[(pieceSelected.x - 1, pieceSelected.y)]]
+            if isOccupiedBy(pieceSelected.x - 1, pieceSelected.y - 1, 'b', 'P'):
+                wdiagl += [(pieceSelected.x - 1, pieceSelected.y - 1)]
+
+            if isOccupiedBy(pieceSelected.x - 1, pieceSelected.y + 1, 'w', 'P'):
+                wdiagr += [(pieceSelected.x - 1, pieceSelected.y + 1)]
+
+            moves += [[(pieceSelected.x - 1, pieceSelected.y)] + wdiagl + wdiagr]
+
+            print(moves)
 
     return moves
+
 
 def text_objects(text, font):
     textSurface = font.render(text, True, WHITE)
