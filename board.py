@@ -333,8 +333,21 @@ pieceSelected = None
 enemyClicked = False
 enemy = None
 
+font = pygame.font.Font('some-time-later.ttf', 50)
+whiteTurnText = font.render("White's Turn", True, WHITE, ORANGE)
+blackTurnText = font.render("Black's Turn", True, BLACK, ORANGE)
+whiteTurnFlag = True
+
+textRect = whiteTurnText.get_rect()
+textRect.center = (150, 120)
+
 # Loop to print out different events, just for testing
 while not gameExit:
+    if(whiteTurnFlag == True):
+        gameDisplay.blit(whiteTurnText, textRect.center)  
+    else:
+        gameDisplay.blit(blackTurnText, textRect.center)
+
     for event in pygame.event.get():
         if event.type == SONG_END:
             sound.music()
@@ -350,7 +363,6 @@ while not gameExit:
 
             # will draw the image at the specified square
             if pieceClicked == True:
-
                 # get the x, y points for which square the sprite belongs in
                 pos = getRectPoints(pos)
 
@@ -389,10 +401,15 @@ while not gameExit:
                         printBoardPieces(spriteList)
 
                         pieceClicked = False
+
+                        if(whiteTurnFlag):
+                            whiteTurnFlag = False
+                        else:
+                            whiteTurnFlag = True
                 else:
                     drawBoard()
                     printBoardPieces(spriteList)
-
+                
             # Store the clicked sprite for the next run of the loop
             # to redraw
             if clicked_sprite:
