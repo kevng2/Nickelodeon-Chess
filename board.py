@@ -167,11 +167,11 @@ def possible_moves(pieceSelected):
             if isOccupied(pieceSelected.x - 1, pieceSelected.y - 1):
                 wdiagl += [(pieceSelected.x - 1, pieceSelected.y - 1)]
             if pieceSelected.y + 1 < 8:
-                if isOccupied(pieceSelected.x - 1, pieceSelected.y + 1) :
+                if isOccupied(pieceSelected.x - 1, pieceSelected.y + 1):
                     wdiagr += [(pieceSelected.x - 1, pieceSelected.y + 1)]
 
             if not isOccupied(pieceSelected.x - 1, pieceSelected.y):
-                moves += [[(pieceSelected.x - 1, pieceSelected.y)] + bdiagl + bdiagr]
+                moves += [[(pieceSelected.x - 1, pieceSelected.y)] + wdiagl + wdiagr]
             else:
                 moves += [bdiagl, bdiagr]
 
