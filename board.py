@@ -157,7 +157,10 @@ def possible_moves(pieceSelected):
                 if isOccupied(pieceSelected.x + 1, pieceSelected.y + 1):
                     bdiagr += [(pieceSelected.x + 1, pieceSelected.y + 1)]
 
-            moves += [[(pieceSelected.x + 1, pieceSelected.y)] + bdiagl + bdiagr]
+            if not isOccupied(pieceSelected.x + 1, pieceSelected.y):
+                moves += [[(pieceSelected.x + 1, pieceSelected.y)] + bdiagl + bdiagr]
+            else:
+                moves += [bdiagl, bdiagr]
             print(moves)
 
         elif pieceSelected.team == 'w':
@@ -167,7 +170,10 @@ def possible_moves(pieceSelected):
                 if isOccupied(pieceSelected.x - 1, pieceSelected.y + 1) :
                     wdiagr += [(pieceSelected.x - 1, pieceSelected.y + 1)]
 
-            moves += [[(pieceSelected.x - 1, pieceSelected.y)] + wdiagl + wdiagr]
+            if not isOccupied(pieceSelected.x + 1, pieceSelected.y):
+                moves += [[(pieceSelected.x + 1, pieceSelected.y)] + bdiagl + bdiagr]
+            else:
+                moves += [bdiagl, bdiagr]
 
             print(moves)
 
