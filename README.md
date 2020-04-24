@@ -9,7 +9,8 @@ Libraries: Pygame- used for creating the board and adding sprites
            sound-used for playing the music
            tkinter - used for the GUI
 </br>
-Issues:Currently after capturing a move you have to click off the board for the board to update.
+Issues: Currently after capturing a move you have to click off the board for the board to update.
+        Currently the game does not implement a check and checkmate function
 </br></br>
 Other Resources:
 </br>
@@ -24,7 +25,7 @@ Extra Features:
 </br>
           Turn Button
           </br>
-          Start Screen 
+          Start Screen
           </br>
           Side board to put captured chess pieces
           </br>
